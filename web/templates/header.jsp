@@ -1,21 +1,6 @@
-<%--
-    Document   : header
-    Created on : 06-oct-2016, 14:06:42
-    Author     : Antares
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <title>JSP Page</title>
-    </head>
-    <body>
-      <div class="navbar navbar navbar-static-top dkd">
+
+<div class="navbar navbar navbar-static-top dkd">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle dkd" data-toggle="collapse" data-target="#navbar-ex-collapse">
@@ -47,5 +32,3 @@
             </div>
         </div>
     </div>
-    </body>
-</html>

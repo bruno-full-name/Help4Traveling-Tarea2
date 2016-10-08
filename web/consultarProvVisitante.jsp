@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="java.lang.String"%>
 <%@page import="help4travelling.DtProveedor"%>
 <%@page import="help4travelling.Usuario"%>
@@ -19,38 +20,7 @@
   <link href="css/consultarProveedoresVisitante.css" rel="stylesheet" type="text/css">
   <link href="css/algo.css" rel="stylesheet" type="text/css">
 </head><body>
-       <div class="navbar navbar navbar-static-top dkd">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle dkd" data-toggle="collapse" data-target="#navbar-ex-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand dkd" href="index.jsp" style="font-size: 40">HELP<b>4</b>TRAVELING</a>
-            </div>
-            <div class="collapse navbar-collapse" id="navbar-ex-collapse">
-              <ul class="nav navbar-nav navbar-right dkd">
-                <li>
-                  <a href="consultarServVisitante.jsp" class="dkd">SERVICIOS</a>
-                </li>
-                <li>
-                  <a href="consultarPromVisitante.jsp" class="dkd">PROMOCIONES</a>
-                </li>
-                <li>
-                  <a href="consultarProvVisitante.jsp" class="dkd">PROVEEDORES</a>
-                </li>
-                <li>
-                  <a href="registrarCliente.jsp" class="dkd">REGISTRARSE</a>
-                </li>
-                <li>
-                  <a href="#" class="dkd">INICIAR SESION</a>
-                </li>
-              </ul>
-            </div>
-        </div>
-    </div>
+       <jsp:include page="templates/header.jsp"/>
 <!---->
 <!--CUERPO-->
 <!---->
@@ -58,10 +28,7 @@
 <!---->
 <%-- Cargo todos los proveedores desde la bd, en un comboBox. --%>
 
-           <%
-               ManejadorSQL.GetInstance().init("192.168.10.132");
-               ArrayList<String> prov = ManejadorSQL.GetInstance().cargarProveedores();
-           %>
+           <%! List<String> prov = ModelUsuario.getInstance().listarProveedores(); %>
            <form action="DevolverProveedor" method="post">
                <select name="listProv">
                <% // cargo proveedores en combobox desde la bd.

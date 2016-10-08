@@ -1,16 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="">
-    
-    <Resource 
-        name="jdbc/bd_help4traveling"
-        auth="Container"
-        type="javax.sql.DataSource"
-        username="root"
-        password="tecnoDBweb2016"
-        driverClassName="java.sql.DriverManager"
-        url="jdbc:mysql://192.168.10.132:3306/bd_help4traveling?useSSL=false"
-        validationQuert="select1 "
-        maxActive="2"
-        maxIdle="1"
-    />
-</Context>
+<Context antiJARLocking="true" path=""/>
