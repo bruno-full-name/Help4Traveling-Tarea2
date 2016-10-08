@@ -1,0 +1,39 @@
+html, body{
+	cursor: default;
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+}
+
+/* Clases útiles ----------------------------------------------------------*/
+.clear{
+	clear:both;
+}
+/* ------------------------------------------------------------------------*/
+
+/* Elementos principales --------------------------------------------------*/
+.divCabecera{
+	height: 12%;
+}
+.divLateral{
+	height: 80%;
+}
+.divPrincipal{
+	height: 80%;
+}
+.divDinamino{
+	height: 85%;
+	overflow: scroll;
+}
+.divPie{
+	height: 15%;
+}
+.footerholder {
+        bottom: 0;
+        position: relative;
+        width: 100%;
+        margin-bottom: 0px;
+        background: #191919;
+        color: white;
+}
+
