@@ -1,9 +1,11 @@
 package Control;
 
+import Modelo.ModelArticulo;
 import help4travelling.DtPromocion;
 import help4travelling.ManejadorSQL;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,16 +15,20 @@ public class DevolverPromocion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //String promo = request.getParameter("Cancelar");
         try {
-            if(request.getParameter("prom") != null){
-                String promocion = request.getParameter("prom");
-                String nickP = promocion.substring(0, promocion.lastIndexOf(","));
-                String nombreA = promocion.substring(promocion.lastIndexOf(",")+1);
-                ManejadorSQL.GetInstance().init("192.168.10.132");
-                DtPromocion p = ManejadorSQL.GetInstance().devolverPromocion(nickP, nombreA);
-                request.setAttribute("promocion", p);
-                request.getRequestDispatcher("consultarPromVisitante.jsp").forward(request, response);
-            }
+            //if (promo ==null){
+                DtPromocion p = ModelArticulo.getInstance().datosPromocion(request.getParameter("nomProm"), request.getParameter("nickProm"));
+                float descProm = p.GetDescuento();
+                float preProm = p.GetPrecio();
+                ArrayList<String> servicos = p.GetServicios();
+                request.setAttribute("nomProm", request.getParameter("nomProm"));
+                request.setAttribute("nickProm", request.getParameter("nickProm"));
+                request.setAttribute("descProm", descProm);
+                request.setAttribute("preProm", preProm);
+                request.setAttribute("servProm", servicos);
+                request.getRequestDispatcher("consultarPromCliente.jsp").forward(request, response);
+            //}
         } finally {
             out.close();
         }

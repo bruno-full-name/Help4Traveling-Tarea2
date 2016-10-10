@@ -1,8 +1,3 @@
-<%--
-    Document   : footer
-    Created on : 06-oct-2016, 14:07:08
-    Author     : Antares
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -34,8 +29,8 @@
           </div>
           <div class="col-sm-6">
             <p class="text-info text-right">
-              <br>
-              <br>
+                <br>
+                <br>
             </p>
             <div class="row">
               <div class="col-md-12 hidden-lg hidden-md hidden-sm text-left">

@@ -45,7 +45,7 @@
            </form>
            
        <%-- Muestro datos del proveedor seleccionado --%>
-       
+
        <% DtPromocion promo = (DtPromocion)request.getAttribute("promocion"); %>
        
        <% if(promo != null){ %>

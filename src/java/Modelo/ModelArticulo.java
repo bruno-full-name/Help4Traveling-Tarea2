@@ -1,5 +1,6 @@
 package Modelo;
 
+import help4travelling.DtPromocion;
 import help4travelling.Factory;
 import help4travelling.IControladorArticulo;
 import help4travelling.ManejadorSQL;
@@ -17,4 +18,17 @@ public class ModelArticulo {
         return instancia;
     }
     
+    public ArrayList<DtPromocion> listarPromociones(){
+        return ICArticulo.listarPromociones();
+    }
+    
+     public DtPromocion datosPromocion(String nombreProm, String nameProv){
+        return ICArticulo.datosPromociones(nombreProm, nameProv);
+    }
+    
 }
+    
+    
+   
+
+
