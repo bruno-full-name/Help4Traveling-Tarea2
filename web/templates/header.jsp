@@ -26,7 +26,7 @@
                   <a href="registrarCliente.jsp" class="dkd">REGISTRARSE</a>
                 </li>
                 <li>
-                  <a href="#" class="dkd">INICIAR SESION</a>
+                  <a href="inicioCliente.jsp" class="dkd">INICIAR SESION</a>
                 </li>
               </ul>
             </div>

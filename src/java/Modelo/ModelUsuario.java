@@ -8,6 +8,10 @@ import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 import help4travelling.ManejadorSQL;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.SQLException;
 
 public class ModelUsuario {
     private static IControladorUsuario ICUsuario = Factory.GetInstance().getIControladorUsuario();
@@ -16,7 +20,7 @@ public class ModelUsuario {
     public static ModelUsuario getInstance(){
         if (instancia==null){
             instancia = new ModelUsuario();
-            ManejadorSQL.GetInstance().init("192.168.10.132");
+            ManejadorSQL.GetInstance().init("localhost");
         }
         return instancia;
     }
@@ -36,6 +40,21 @@ public class ModelUsuario {
     
     public List<String> listarProveedores(){
         return ICUsuario.listarProveedores();
+    } 
+    
+    public void agregarCliente(DtCliente dtcli){
+        ICUsuario.AltaCliente(dtcli);
     }
     
+    public boolean VerificarNickCliente(String nick){
+        return ICUsuario.chequearNick(nick);
+    }
+    
+    public boolean VerificarEmailCliente(String email){
+        return ICUsuario.chequearEmail(email);
+    }
+    
+    public void agregarImagenCliente(InputStream f, String NickC) throws FileNotFoundException, SQLException, IOException{
+        ManejadorSQL.GetInstance().insertImgUsuariov2(f, NickC);
+    }
 }

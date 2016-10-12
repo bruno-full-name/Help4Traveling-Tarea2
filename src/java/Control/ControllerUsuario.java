@@ -5,12 +5,16 @@
  */
 package Control;
 
+import Modelo.ModelUsuario;
+import help4travelling.DtCliente;
+import help4travelling.DtFecha;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,23 +32,42 @@ public class ControllerUsuario extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ControllerUsuario</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ControllerUsuario at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        } finally {
-            out.close();
+            throws ServletException, IOException {        
+        
+        String nick = request.getParameter("nick");
+        String mail = request.getParameter("email");
+        String name = request.getParameter("nombre");
+        String pass = request.getParameter("pass");      
+        String pass2 = request.getParameter("pass2");      
+        String lastname = request.getParameter("apellido");        
+        String fdia = request.getParameter("fnac1");               
+        String fmes = request.getParameter("fnac2");
+        String fanio = request.getParameter("fnac3");        
+        String fnac = (fanio+"/"+fmes+"/"+fdia);
+        
+        ModelUsuario modUsu = ModelUsuario.getInstance();        
+                    
+        if(modUsu.VerificarNickCliente(nick)){
+            request.setAttribute("error_registro","nick");
+            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
         }
+
+        if(modUsu.VerificarEmailCliente(mail)){
+            request.setAttribute("error_registro","mail");
+            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
+        }
+
+        if(!(pass.equals(pass2))){
+            request.setAttribute("error_registro", "pass");
+            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
+        }
+        
+        DtCliente dtcli = new DtCliente(nick, name, lastname, mail, new DtFecha(fnac), null, null, pass);
+        modUsu.agregarCliente(dtcli);
+
+        request.setAttribute("mensaje", "Se agrego el cliente");
+        
+        request.getRequestDispatcher("registrarClienteImg.jsp").forward(request, response);        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
