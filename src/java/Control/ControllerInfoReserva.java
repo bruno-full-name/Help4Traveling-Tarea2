@@ -35,10 +35,12 @@ public class ControllerInfoReserva extends HttpServlet {
             throws ServletException, IOException {
         
         ModelReserva modRes = ModelReserva.getInstance();
-        
+                       
         String cli = request.getParameter("cli");        
-        System.out.println("bader1 "+cli+" asd");
-        Integer[] idReservas = modRes.ObtenerReservas(cli);        
+        Integer[] idReservas = modRes.ObtenerReservas(cli);   
+        
+        
+        
         request.setAttribute("arrayReservas", idReservas);
         
         //pasamano negro

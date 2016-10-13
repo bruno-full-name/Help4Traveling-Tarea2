@@ -1,6 +1,7 @@
 package Modelo;
 
 import help4travelling.DtPromocion;
+import help4travelling.DtServicio;
 import help4travelling.Factory;
 import help4travelling.IControladorArticulo;
 import help4travelling.ManejadorSQL;
@@ -13,7 +14,7 @@ public class ModelArticulo {
     public static ModelArticulo getInstance(){
         if (instancia==null){
             instancia = new ModelArticulo();
-            ManejadorSQL.GetInstance().init("localhost");
+            ManejadorSQL.GetInstance().init("192.168.10.132");
         }
         return instancia;
     }
@@ -34,7 +35,11 @@ public class ModelArticulo {
             if(x.GetNombre().equalsIgnoreCase(nombreServicio)) ret = false;
         }
         return ret;
-    }    
+    }
+    
+    public ArrayList<DtServicio> serviciosXprov(String nickP){
+        return ICArticulo.ListarServiciosProv(nickP);
+    }
 }
     
     

@@ -1,3 +1,7 @@
+<%@page import="help4travelling.DtServicio"%>
+<%@page import="javax.servlet.jsp.PageContext"%>
+<%@page import="Modelo.ModelArticulo"%>
+<%@page import="java.util.List"%>
 <%@page import="java.lang.String"%>
 <%@page import="help4travelling.DtProveedor"%>
 <%@page import="help4travelling.Usuario"%>
@@ -11,165 +15,235 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/consultarProveedores.css" rel="stylesheet" type="text/css">
-    <link href="css/algo.css" rel="stylesheet" type="text/css">
-  </head><body>
-    <jsp:include page="templates/headerC.jsp"/>
-    <!---->
-    <!--CUERPO-->
-    <!---->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="css/consultarProveedoresVisitante.css" rel="stylesheet" type="text/css">
+  <link href="css/algo.css" rel="stylesheet" type="text/css">
+</head><body>
+       <jsp:include page="templates/headerC.jsp"/>
+<!---->
+<!--CUERPO-->
+<!---->
+    
+    <%!
+        ArrayList<DtProveedor> p = ModelUsuario.getInstance().listarProveedoresDatos();
+    %>
+    
     <div class="divPrincipal">
-      <div class="section">
-        <div class="container-fluid">
-          <div class="col-md-12">
-            <h1 class="text-center" style="color: #313131; font-family: Helvetica">PROVEEDORES</h1>
-            <hr style="color: black; background-color: black;">
+    <div class="section">
+        <div class="container-fluid" id="scrollspy">
+        <div class="row">
+          <div class="col-md-12" style="border-bottom-style: solid; border-color: rgb(1, 82, 158); border-width: 9px">
+            <h1 class="text-center" style="color: #313131; font-family: Helvetica; ">PROVEEDORES</h1>
           </div>
         </div>
-      </div>
-      <div class="section" style="margin-top: -55">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-3" style="margin-top: -30">
-              <center>
-                <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Seleccionar proveedor</h2>
-                <hr style="color: black; background-color: black">
-                <div class="section">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <table class="table" style="background-color: #979797; margin-top: -30; margin-left: 7">
-                          <thead style="background-color: #545454; color: white; font-family: Helvetica; font-size: 14">
-                            <tr>
-                              <th style="width: 300">NICKNAME</th>
-                              <th style="width: 300">NOMBRE</th>
-                            </tr>
-                          </thead>
-                          <tbody style="color: white; font-family: Helvetica; font-size: 13">
-                            <tr>
-                              <td>Batch script</td>
-                              <td>Fulano</td>
-                            </tr>
-                          </tbody>
-                        </table>
+        <div class="row">
+          <div class="col-md-3" style="height: 600px; max-height: 600px; overflow-y: auto; background-color: #e0e0e0">
+            <nav id="lista" data-spy="scroll" data-target="#scrollspy" data-offset="50">
+              <ul class="nav nav-pills nav-stacked" style="margin-top: 10px">
+                <% for(int x = 0; x < p.size(); x++){ %>
+                    <li>
+                        <a href="#<%="p"+(x+1)%>" style="font-family: Helvetica; font-size: 14px; ; width: 100%; height: 35px; background-color: #01529e; color: white">
+                          <center><%= p.get(x).getNick().trim() %></center>
+                      </a>
+                    </li>
+                <%}%>
+              </ul>
+            </nav>
+          </div>
+          <!-- FIN LISTA DE PROVEEDORES && COMIENZO INFORMACION DETALLADA -->
+          <div class="col-md-9" style="height: 600px; max-height: 600px; overflow-y: auto; background-color: #e0e0e0">
+            <!-- COMIENZO FILA CON INFORMACION DE CADA PROVEEDOR -->
+            
+            <%   for(int x = 0; x < p.size(); x++){   %>
+            
+                    <div id="<%="p"+(x+1)%>" class="row" style="height: 600px; max-height: 600px; width: 100%;">
+                      <div class="row" style="height: 7%; max-height: 7%; background-color: #4A4C4E; margin-left: 1px">
+                        <h3 style="margin-top: 8px; font-family: Helvetica; color: #80878F">
+                            <center><%= p.get(x).getNick().trim() %></center>
+                        </h3>
+                      </div>
+                      <div class="row" style="height: 93%; max-height: 93%; background-color: #8e969f; margin-left: 1px">
+                        <div class="col-md-6">
+                          <div class="row" style="min-width: 100%; max-width: 100%; min-height: 60%; max-height: 60%; margin-left: 1px">
+                            <h3 style="margin-top: 0; background-color: #80878F; color: #4A4C4E; font-family: Helvetica; height: 5%">
+                              <center>Imagen</center>
+                            </h3>
+                              <img src="data:image;base64,@System.Convert.ToBase64String(<%= ModelUsuario.getInstance().getImagen(p.get(x).getNick()) %>)" style="min-width: 100%; max-width: 100%; width: 100%; min-height: 55%; max-height: 55%; height: 55%; margin-top: -10px; border: none">
+                            
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="row" style="min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; margin-left: 1px">
+                            <div class="row" style="min-width: 100%; max-width: 100%; min-height: 5%; max-height: 5%; margin-left: 1px">
+                              <h3 style="margin-top: 0; background-color: #80878F; color: #4A4C4E; font-family: Helvetica; height: 5%">
+                                <center>Información</center>
+                              </h3>
+                            </div>
+                            <div class="row" style="min-width: 100%; max-width: 100%; min-height: 40%; max-height: 40%; margin-left: 1px">
+                              <!-- TABLA CON DESCRIPCION -->
+                              <div class="col-md-6" style="margin-left: -15px">
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>NICKNAME:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>EMAIL:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>NOMBRE:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>APELLIDO:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>FECHA NAC.:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>NOMBRE EMP.:</center>
+                                </h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                  <center>LINK EMP.:</center>
+                                </h4>
+                              </div>
+                              <!-- TABLA CON LA INFORMACION -->
+                              <div class="col-md-6" style="margin-left: -20px">
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getNick().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getEmail().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getNombre().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getApellido().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getFechaN().toString().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= p.get(x).getNombreEmpresa().trim() %></h4>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%; max-width: 124%; overflow-x: auto"><%= p.get(x).getUrl().trim() %></h4>
+                              </div>
+                            </div>
+                            <div class="row" style="min-width: 100%; max-width: 100%; min-height: 10%; max-height: 10%; margin-left: 1px; margin-top: 25px">
+                              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<%="modalProv"+(x+1)%>" style="width: 100%; height: 10%; color: #80878F; background-color: #4A4C4E; border:none; font-family: Helvetica; font-size: 22px">Ver Servicios</button>
+                            </div>
+                            <!-- MODAL CON INFORMACION DE LOS SERVICIOS DE CADA PROVEEDOR -->
+                            <!-- Modal -->
+                            
+                            <div id="<%="modalProv"+(x+1)%>" class="modal fade" role="dialog">
+                              <div class="modal-dialog" style="width: 80%">
+                                <div class="modal-content">
+                                  <div class="modal-header" style="background-color: #4A4C4E; min-height: 50px; max-height: 50px">
+                                    <button type="button" class="close" data-dismiss="modal" style="color: white">×</button>
+                                    <h3 class="modal-title" style="font-family: Helvetica; color: #8e969f; margin-top: -5px">
+                                      <center>SERVICIOS DEL PROVEEDOR</center>
+                                    </h3>
+                                  </div>
+                                  <div class="modal-body" style="height: 70%; max-height: 70%; min-height: 420px; overflow-y: auto">
+                            
+                            <%   for(int e = 0; e < p.get(x).getServicio().size(); e++){   %>
+                            <%      ArrayList<DtServicio> s = ModelArticulo.getInstance().serviciosXprov(p.get(x).getNick().trim());  %>
+                                      
+                                    <div class="row" style="background-color: #E6E6E6; min-height: 390px; max-height: 390px">
+                                      <div class="row" style="width: 100%; margin-left: 0; min-height: 40px; max-height: 40px; background-color: #D0D0D0">
+                                          <h3 style="margin-top: 7px; color: #4A4C4E"><%= s.get(e).getNombre().trim() %></h3>
+                                      </div>  
+                                    <div class="row" style="width: 100%; margin-left: 0; min-height: 350px; max-height: 350px;">
+                                      <!-- CARRUSEL DE IMAGENES -->
+                                      <div class="col-md-6">
+                                        <div id="imgs" class="carousel slide" data-ride="carousel" style="margin-top: 20px">
+                                          <ol class="carousel-indicators">
+                                            <li data-target="#imgs" data-slide-to="0" class="active"></li>
+                                            <li data-target="#imgs" data-slide-to="1"></li>
+                                            <li data-target="#imgs" data-slide-to="2"></li>
+                                          </ol>
+                                          <div class="carousel-inner" role="listbox">
+                                            <div class="item active">
+                                              <img src="img/R4IMYQNVRI.jpg" style="min-height: 315px; height: auto; max-height: 315px; max-width: 100%">
+                                            </div>
+                                            <div class="item">
+                                              <img src="img/YH1RSSLXJC.jpg" style="min-height: 315px; height: auto; max-height: 315px; max-width: 100%">
+                                            </div>
+                                            <div class="item">
+                                              <img src="img/R4IMYQNVRI.jpg" style="min-height: 315px; height: auto; max-height: 315px; max-width: 100%">
+                                            </div>
+                                          </div>
+                                          <a class="left carousel-control" href="#imgs" role="button" data-slide="prev">
+                                            <span aria-hidden="true" style="font-family: Helvetica; font-style: italic; font-size: 26px;">&lt;</span>
+                                          </a>
+                                          <a class="right carousel-control" href="#imgs" role="button" data-slide="next">
+                                            <span aria-hidden="true" style="font-family: Helvetica; font-style: italic; font-size: 26px">&gt;</span>
+                                          </a>
+                                        </div>
+                                      </div>
+                                      <!-- FIN DE CARRUSEL && INICIO INFORMACION SERVICIO -->
+                                      <div class="col-md-6">
+                                        <div class="col-md-6" style="margin-top: 20px; margin-left: -20px">
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>PROVEEDOR:</center>
+                                          </h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>NOMBRE:</center>
+                                          </h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>PRECIO:</center>
+                                          </h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>CIUDAD ORIGEN:</center>
+                                          </h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>CIUDAD DESTINO:</center>
+                                          </h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                            <center>DESCRIPCION:</center>
+                                          </h4>
+                                        </div>
+                                        <!-- TABLA CON LA INFORMACION -->
+                                        <div class="col-md-6" style="margin-top: 20px; margin-left: -20px">
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= s.get(e).getNickProveedor().trim() %></h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= s.get(e).getNombre().trim() %></h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= s.get(e).getPrecio().toString().trim() %></h4>
+                                          <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; width: 100%"><%= s.get(e).getCiudadOrigen().trim() %></h4>
+                                          <% if(s.get(e).getCiudadDestino() != null && !s.get(e).getCiudadDestino().isEmpty()){ %>
+                                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; max-height: 150px; overflow-y: auto; width: 100%"><%= s.get(e).getCiudadDestino().trim() %></h4>
+                                          <% }else{ %>
+                                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; max-height: 150px; overflow-y: auto; width: 100%">(A confirmar...)</h4>
+                                          <% } %>
+                                          <% if(s.get(e).getDescripcion() != null && !s.get(e).getDescripcion().isEmpty()){ %>
+                                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; max-height: 150px; overflow-y: auto; width: 100%"><%= s.get(e).getDescripcion().trim() %></h4>
+                                          <% }else{ %>
+                                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F; max-height: 150px; overflow-y: auto; width: 100%">(Actualmente, este servicio no posee una descripción)</h4>
+                                          <% } %>
+                                        </div>
+                                      </div>
+                                    </div>     
+                                </div>
+                                        
+                        <%  } // fin for de servicios por proveedor  %>
+                              </div>
+                              <div class="modal-footer" style="background-color: #8e969f">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #4A4C4E; color: white; border: none; font-family: Helvetica">ACEPTAR</button>
+                              </div>
+                            </div>
+                          </div>
+                            </div>
+
+                        <!-- FIN DEL MODEL DE SERVICIOS -->
                       </div>
                     </div>
                   </div>
                 </div>
-              </center>
-            </div>
-            <div class="col-md-3" style="margin-top: -30">
-              <center>
-                <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Información</h2>
-                <hr style="color: black; background-color: black">
-              </center>
-              <div class="col-md-6">
-                <h4 style="font-family: Helvetica; font-size: 16">Nickname:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Nombre:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Apellido:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Fecha Nac.:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Email:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Nombre empresa:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Link empresa:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Imagen:</h4>
-              </div>
-              <div class="col-md-6">
-                <h4 style="font-family: Helvetica; font-size: 16">aca va el nombre</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">aca va el proveedor</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">...</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">...</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">...</h4>
-              </div>
-            </div>
+                        
+                <%  } // fin for proveedores   %>
+                     
+          <!-- FIN FILA CON INFORMACION DE CADA PROVEEDOR -->
           </div>
         </div>
       </div>
     </div>
-
-
-
-<!--CODIGO YA IMPLEMENTADO FALTA MESCLAR CON LA PARTE VISUAL-->
-<%-- Cargo todos los proveedores desde la bd, en un comboBox. --%>
-            
-            <%
-                ManejadorSQL.GetInstance().init("192.168.10.132");
-                ArrayList<String> prov = ManejadorSQL.GetInstance().cargarProveedores();
-            %>
-            <form action="DevolverProveedor" method="post">
-                <select name="listProv">
-                <% // cargo proveedores en combobox desde la bd.
-                    for(int x = 0; x < prov.size(); x++){
-                %>
-                <option> <%= prov.get(x).toString() %> </option>
-                <% }%>
-                </select>
-            <input type="submit" value="Seleccionar" />
-            </form>
-            
-        <%-- Muestro datos del proveedor seleccionado --%>
-        
-        <% DtProveedor p = (DtProveedor)request.getAttribute("prov"); %>
-        
-        <% if(p != null){ %>
-        <table border="0">
-            <tbody>
-                <tr>
-                    <td>Nickname: </td>
-                    <td><%= p.getNick().trim() %></td>
-                </tr>
-                <tr>
-                    <td>Nombre: </td>
-                    <td><%= p.getNombre().trim() %></td>
-                </tr>
-                <tr>
-                    <td>Apellido: </td>
-                    <td><%= p.getApellido().trim() %></td>
-                </tr>
-                <tr>
-                    <td>Email: </td>
-                    <td><%= p.getEmail().trim() %></td>
-                </tr>
-                <tr>
-                    <td>Fecha Nac.: </td>
-                    <td><%= p.getFechaN().toString().trim() %></td>
-                </tr>
-                <tr>
-                    <td>Nombre Empresa: </td>
-                    <td><%= p.getNombreEmpresa().trim() %></td>
-                </tr>
-                <tr>
-                    <td>LinkEmpresa: </td>
-                    <td><%= p.getUrl().trim() %></td>
-                </tr>
-                <% if(request.getAttribute("imagen") != null){%>
-                <tr>
-                    <td>Imagen: </td>
-                    <td><%= (Byte[])request.getAttribute("imagen") %></td>
-                </tr>
-                <%}%>
-            </tbody>
-        </table>
-        
-                
-
-        
-                
-        <%} // endif proveedor es null how to insert images in html from database)o no %> 
-        
-        
-<!-- FIN DE CODIGO YA IMPLEMENTADO FALTA MESCLAR CON LA PARTE VISUAL-->
-
-
+    </div>
+<!---->
+<!-- FUNCIONES JAVASCRIPT-->
+<!---->
     
-    <!---->
-    <!--FOOTER-->
-    <!---->
-    <jsp:include page="templates/footer.jsp"/>
+<!---->
+<!--FOOTER-->
+<!---->
+<jsp:include page="templates/footer.jsp"/>
 
-
-</body></html>
+  </body></html>

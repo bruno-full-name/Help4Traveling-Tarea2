@@ -19,7 +19,7 @@
     <!--CUERPO-->
     <div class="divPrincipal">
     <!---->
-        <div class="section" style="padding-bottom: 0px">
+       <div class="section" style="padding-bottom: 0px">
         <div class="container-fluid">
           <div class="col-md-12">
             <h1 class="text-center" style="color: #313131; font-family: Helvetica">PROMOCIONES</h1>
@@ -58,7 +58,7 @@
                             </tr>
                           </thead>
                           <tbody style="color: white; font-family: Helvetica; font-size: 13">
-                                 <% ArrayList<DtPromocion> prom = ModelArticulo.getInstance().listarPromociones(); %>
+                                 <%! ArrayList<DtPromocion> prom = ModelArticulo.getInstance().listarPromociones(); %>
                 
                                 <% for(int i=0; i<prom.size(); i++){ %>
                                 <tr> 
@@ -78,13 +78,15 @@
             <div class="col-md-3">
               <center>
                 <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Información</h2>
-                <hr style="color: black; background-color: black">
+                
               </center>
+              <hr style="color: black; background-color: black">
               <div class="col-md-6">
                 <h4 style="font-family: Helvetica; font-size: 16">Nombre:</h4>
                 <h4 style="font-family: Helvetica; font-size: 16">Proveedor:</h4>
                 <h4 style="font-family: Helvetica; font-size: 16">Descuento:</h4>
                 <h4 style="font-family: Helvetica; font-size: 16">Precio Total:</h4>
+                <h4 style="font-family: Helvetica; font-size: 16; margin-top: 40px">Cantidad:</h4>
               </div>
                     <div class="col-md-6">
                         <form id="from_id" action="DevolverPromocion" method="post" class="from_class">
@@ -92,7 +94,13 @@
                             <input type="text" class="form-control" id="nomProm" name="nickProm" readonly/>
                         </form>
                         <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
-                        <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
+                        <form id="from_id2" action="AgregarAlCarrito" method="post" class="from_class">
+                            <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
+                            <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="margin-top: 20px"/>
+                            <input type="hidden" class="form-control" id="nickProm2" name="nomProm2" />
+                            <input type="hidden" class="form-control" id="nomProm2" name="nickProm2" />
+                            <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
+                        </form>
                     </div>
             </div>
             <div class="col-md-6">
@@ -133,9 +141,12 @@
         $(this).addClass('selected').siblings().removeClass('selected');    
         var value = $(this).find('td:first').html();
         var value2 = $(this).find("td").eq(1).html();
-        document.getElementById('nickProm').value = value2;
-        document.getElementById('nomProm').value = value;
-        document.getElementById("from_id").submit();           
+        if (value != undefined){
+            document.getElementById('nickProm').value = value2;
+            document.getElementById('nomProm').value = value;
+            document.getElementById("from_id").submit();
+        }
+         
     });
 
  /*$('.ok').on('click', function(e){
@@ -149,39 +160,52 @@
             var val2 = '<%=request.getAttribute("nickProm")%>';
             var val3 = '<%=request.getAttribute("descProm")%>';
             var val4 = '<%=request.getAttribute("preProm")%>';
+            var val5 = '<%=request.getAttribute("servProm")%>';
             
-            if (val1 !== "null" ||  val2 !== "null"){
+            if (val1 != "null" ||  val2 != "null"){
                 document.getElementById('nickProm').value = val1;
                 document.getElementById('nomProm').value = val2;
+                document.getElementById('nickProm2').value = val1;
+                document.getElementById('nomProm2').value = val2;
                 document.getElementById('descProm').value = val3 + "%";
-                document.getElementById('preProm').value = val4; 
-            } 
-            
-            
-            var val5 = '<%=request.getAttribute("servProm")%>';
-            var partsArray1 = val5.split('[');
-            var partsArray2 = partsArray1[1].split(']');
-            var partsArray = partsArray2[0].split(',');
-            var tblBody  = document.getElementById("tbody");
-            
-            for (var i = 0; i < partsArray.length; i++) {
-                var row = document.createElement("tr");
+                document.getElementById('preProm').value = val4;
+     
+                var partsArray1 = val5.split('[');
+                var partsArray2 = partsArray1[1].split(']');
+                var partsArray = partsArray2[0].split(',');
+                var tblBody  = document.getElementById("tbody");
 
-                var cell = document.createElement("td");
-                var cellText = document.createTextNode(val2);
-                cell.appendChild(cellText);
-                row.appendChild(cell);
+                for (var i = 0; i < partsArray.length; i++) {
+                    var row = document.createElement("tr");
 
-                var cell = document.createElement("td");
-                var cellText = document.createTextNode(partsArray[i]);
-                cell.appendChild(cellText);
-                row.appendChild(cell);
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode(val2);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
 
-                tblBody.appendChild(row);
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode(partsArray[i]);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+
+                    tblBody.appendChild(row);
+                }
             }
-                
         }
-    
+            
+                
+</script>
+
+<script type="text/javascript">
+        function AGREGARALCARRO() {
+           var nick = document.getElementById('nickProm').value;
+           var nom = document.getElementById('nomProm').value;
+           if (nick != "" && nom != ""){
+               document.getElementById("from_id2").submit();
+           }
+        }
+            
+                
 </script>
 
 <script type="text/javascript"> window.onload=ALGO();</script>

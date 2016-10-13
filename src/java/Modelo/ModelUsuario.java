@@ -3,6 +3,7 @@ package Modelo;
 import help4travelling.DtFecha;
 import help4travelling.Factory;
 import help4travelling.DtCliente;
+import help4travelling.DtProveedor;
 import help4travelling.IControladorUsuario;
 import java.sql.Blob;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class ModelUsuario {
     public static ModelUsuario getInstance(){
         if (instancia==null){
             instancia = new ModelUsuario();
-            ManejadorSQL.GetInstance().init("localhost");
+            ManejadorSQL.GetInstance().init("192.168.10.132");
         }
         return instancia;
     }
@@ -56,5 +57,18 @@ public class ModelUsuario {
     
     public void agregarImagenCliente(InputStream f, String NickC) throws FileNotFoundException, SQLException, IOException{
         ManejadorSQL.GetInstance().insertImgUsuariov2(f, NickC);
+    }
+    
+       public ArrayList<DtProveedor> listarProveedoresDatos(){
+        ArrayList<DtProveedor> ret = new ArrayList<DtProveedor>();
+        List<String> provs = ICUsuario.listarProveedores();
+        for(int x = 0; x < provs.size(); x++){
+            ret.add(ICUsuario.datosProveedor(provs.get(x).trim()));
+        }
+        return ret;
+    }
+       
+    public byte[] getImagen(String nickP){
+        return ManejadorSQL.GetInstance().selectImgUsuario(nickP);
     }
 }

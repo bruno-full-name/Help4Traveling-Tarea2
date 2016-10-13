@@ -17,7 +17,7 @@ public class ModelReserva {
     public static ModelReserva getInstance(){
         if (instancia==null){
             instancia = new ModelReserva();
-            ManejadorSQL.GetInstance().init("localhost");
+            ManejadorSQL.GetInstance().init("192.168.10.132");
         }
         return instancia;
     }

@@ -13,7 +13,7 @@
         <url-pattern>/ControllerInfoReserva</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>inicioCliente.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>ControllerReserva</servlet-name>
