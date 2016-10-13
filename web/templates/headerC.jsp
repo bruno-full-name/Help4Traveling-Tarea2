@@ -1,5 +1,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
  
+<script>
+    function pedirNickCliente(){
+        var s = document.getElementById("nickcli");
+        var x = prompt("Inserte su Nick de cliente", "");
+        s.value = x;
+        document.forms["form3"].submit();
+    }
+</script>
+
 <div class="navbar navbar navbar-static-top dkd">
         <div class="container-fluid">
             <div class="row">
@@ -15,8 +24,8 @@
                     </div>
                     <div class="collapse navbar-collapse" id="navbar-ex-collapse">
                         <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a href="consultarReservas.jsp" class="dkd">RESERVAS</a>
+                            <li>                                
+                                <a class="dkd" onclick="pedirNickCliente()">RESERVAS</a>
                             </li>
                             <li>
                                 <a href="consultarServCliente.jsp" class="dkd">SERVICIOS</a>
@@ -54,3 +63,7 @@
             </div>
         </div>
     </div>
+
+<form action="ControllerInfoReserva" method="post" id="form3">
+    <input type="hidden" name="cli" id="nickcli">
+</form>

@@ -3,8 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bruno/Documents/NetBeansProjects/Help4Traveling-web/src/java/Control/DevolverPromocion.java</file>
-            <file>file:/C:/Users/bruno/Documents/NetBeansProjects/Help4Traveling-web/web/consultarPromCliente.jsp</file>
+            <file>file:/C:/Users/Antares/Desktop/ProgWebAntares/ProgAppWeb2016/Nueva%20Carpeta2/Help4Traveling-Tarea2/src/java/Control/ControllerUserImage.java</file>
+            <file>file:/C:/Users/Antares/Desktop/ProgWebAntares/ProgAppWeb2016/Nueva%20Carpeta2/Help4Traveling-Tarea2/src/java/Modelo/ModelUsuario.java</file>
+            <file>file:/C:/Users/Antares/Desktop/ProgWebAntares/ProgAppWeb2016/Nueva%20Carpeta2/Help4Traveling-Tarea2/src/java/Control/ControllerUsuario.java</file>
+            <file>file:/C:/Users/Antares/Desktop/ProgWebAntares/ProgAppWeb2016/Nueva%20Carpeta2/Help4Traveling-Tarea2/web/registrarCliente.jsp</file>
+            <file>file:/C:/Users/Antares/Desktop/ProgWebAntares/ProgAppWeb2016/Nueva%20Carpeta2/Help4Traveling-Tarea2/web/registrarClienteImg.jsp</file>
         </group>
     </open-files>
 </project-private>

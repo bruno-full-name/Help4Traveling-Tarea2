@@ -8,6 +8,7 @@ import help4travelling.DtReserva;
 import help4travelling.Estado;
 import java.util.ArrayList;
 import help4travelling.ManejadorSQL;
+import java.util.List;
 
 public class ModelReserva {
     private static IControladorReserva ICReserva = Factory.GetInstance().getIControladorReserva();
@@ -16,7 +17,7 @@ public class ModelReserva {
     public static ModelReserva getInstance(){
         if (instancia==null){
             instancia = new ModelReserva();
-            ManejadorSQL.GetInstance().init("192.168.10.132");
+            ManejadorSQL.GetInstance().init("localhost");
         }
         return instancia;
     }
@@ -31,5 +32,15 @@ public class ModelReserva {
     
     public void agregarReserva(int id, Estado estado, DtFecha date, ArrayList<DtInfoReserva> infoReserva ,String nickCli, float precio){
         ICReserva.CrearReserva(new DtReserva(id, estado, date, infoReserva ,nickCli, precio));
+    }
+    
+    public Integer[] ObtenerReservas(String cli){
+        List<Integer> res = ICReserva.listarReservasXcli(cli);             
+        Integer[] Iret = res.toArray(new Integer[res.size()]);
+        return Iret;
+    }
+    
+    public ArrayList<DtInfoReserva> ObtenerDatosReserva(int idRes){
+        return ICReserva.ObtenerInfoArticulosReservados(idRes);
     }
 }

@@ -13,7 +13,7 @@ public class ModelArticulo {
     public static ModelArticulo getInstance(){
         if (instancia==null){
             instancia = new ModelArticulo();
-            ManejadorSQL.GetInstance().init("192.168.10.132");
+            ManejadorSQL.GetInstance().init("localhost");
         }
         return instancia;
     }
@@ -26,6 +26,15 @@ public class ModelArticulo {
         return ICArticulo.datosPromociones(nombreProm, nameProv);
     }
     
+    public boolean EsServicio(String nombreServicio){
+        //Toma por sentado que el nombre es de un servicio, recorre todos las promociones del sistema, si el nombre es igual a una de ellas devuelve false
+        ArrayList<DtPromocion> lart = ICArticulo.listarPromociones();
+        boolean ret = true;
+        for(DtPromocion x : lart){
+            if(x.GetNombre().equalsIgnoreCase(nombreServicio)) ret = false;
+        }
+        return ret;
+    }    
 }
     
     
