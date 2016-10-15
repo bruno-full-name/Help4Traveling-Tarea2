@@ -23,20 +23,17 @@ public class DevolverPromocion extends HttpServlet {
         try {
             if (ajax) {
                 if (promo == null){
-                    System.out.println("descdescdescdescdesc");
                     String descuento = String.valueOf(p.GetDescuento());
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(descuento);
 
                 }else if (promo2 == null){
-                    System.out.println("prepreprepreprepre");
                     String precio = String.valueOf(p.GetPrecio());
                     response.setContentType("text/plain");
                     response.setCharacterEncoding("UTF-8");
                     response.getWriter().write(precio);
                 }else {
-                    System.out.println("servservservservserv");
                     List<String> servicos = p.GetServicios();
                     String json = new Gson().toJson(servicos);
                     response.setContentType("application/json");

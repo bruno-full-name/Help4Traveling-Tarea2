@@ -34,15 +34,30 @@ public class AgregarAlCarrito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-  
-        if (request.getParameter("nickProm2") != null ){
-            String nick = request.getParameter("nickProm");
-            String nom = request.getParameter("nomProm");
-            String precio = request.getParameter("preProm");
-            float precio2 = Float.valueOf(precio);
-            String cant = request.getParameter("cant");
-            int cant2 = Integer.valueOf(cant);
-            DtInfoReserva carrito = new DtInfoReserva(null, null, cant2, nom, nick, precio2);
+        String nickProm = request.getParameter("nickProm");
+        String nomProm = request.getParameter("nomProm");
+        String precio = request.getParameter("preProm");
+        float precio2 = 0;
+        if (precio != null)
+            precio2 = Float.valueOf(precio);
+        String cant = request.getParameter("cant");
+        int cant2 = 0;
+        if (cant != null)
+            cant2 = Integer.valueOf(cant);
+        
+        String nickServ =  request.getParameter("nickServ");
+        String nomServ =  request.getParameter("nomServ");
+        String precioServ = request.getParameter("preServ");
+        float precioServ2 = 0;
+        if (precioServ != null)
+            precioServ2 = Float.valueOf(precioServ);
+        String cantServ = request.getParameter("cantServ");
+        int cantServ2 = 0;
+        if (cantServ != null)
+            cantServ2 = Integer.valueOf(cantServ);
+            
+        if ( nickProm != null &&  nomProm != null){
+            DtInfoReserva carrito = new DtInfoReserva(null, null, cant2, nomProm, nickProm, precio2);
             
             HttpSession session = request.getSession();
             ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
@@ -51,8 +66,30 @@ public class AgregarAlCarrito extends HttpServlet {
                 carrito2.add(carrito);
                 session.setAttribute("ListaInfoRes", carrito2);
             }else{
+                /*System.out.println(listInfoRes.get(0).GetNombreArticulo());
+                System.out.println(listInfoRes.size());*/
                 listInfoRes.add(carrito);
+                /*System.out.println(listInfoRes.get(listInfoRes.size()-1).GetNombreArticulo());
+                System.out.println(listInfoRes.size());*/
                 session.setAttribute("ListaInfoRes", listInfoRes);
+            }
+        }else if (nickServ != null && nomServ != null){
+            DtInfoReserva carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
+            
+            HttpSession session = request.getSession();
+            ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+            if (listInfoRes == null){
+                ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
+                carrito2.add(carrito);
+                session.setAttribute("ListaInfoRes", carrito2);
+            }else{
+                /*System.out.println(listInfoRes.get(0).GetNombreArticulo());
+                System.out.println(listInfoRes.size());*/
+                listInfoRes.add(carrito);
+                /*System.out.println(listInfoRes.get(1).GetNombreArticulo());
+                System.out.println(listInfoRes.size());*/
+                session.setAttribute("ListaInfoRes", listInfoRes);
+                
             }
         }
         try {

@@ -41,12 +41,12 @@
           <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px"></div>
           <div class="col-md-6" style="background-color: #01529e; min-height: 70px; max-height: 70px">
             <center>
-              <input type="text" style="width: 80%; height: 32px; margin-top: 15px; font-family: Helvetica; font-size: 22px; font-style: italic; color: #01529e" value="Introduzca un filtro...">
+                <input type="text" style="width: 80%; height: 32px; margin-top: 15px; font-family: Helvetica; font-size: 22px; font-style: italic; color: #01529e" placeholder="Introduzca un filtro...">
               <button class="btn btn-primary" style="height: 32px; font-family: Helvetica; font-size: 20px; margin-top: -7px">Aplicar</button>
             </center>
           </div>
           <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px">
-            <h3 style="color: white; margin-top: 35px">Listar:</h3>
+            <h3 style="color: white; margin-top: 15px">Listar:</h3>
             <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px; margin-left: 80px">A-Z</button>
             <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px">$</button>
           </div>
@@ -87,7 +87,7 @@
                   <div id="<%="fila"+(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
                     <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
                       <div class="col-md-9">
-                          <h2 style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() %></h2>
+                          <h2 id="<%= "titulo"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() + ", " + s.get(x).getNickProveedor().trim() %></h2>
                       </div>
                       <div class="col-md-3">
                         <div class="col-md-2">
@@ -96,7 +96,7 @@
                           </h2>
                         </div>
                         <div class="col-md-10">
-                            <h2 style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -10px; text-align: left; font-size: 25px"><%= s.get(x).getPrecio().toString().trim() %></h2>
+                            <h2 id="<%= "precio"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -10px; text-align: left; font-size: 25px"><%= s.get(x).getPrecio().toString().trim() %></h2>
                         </div>
                       </div>
                       <div class="row" style="height: 160px; width: 100%; margin-left: 0px; margin-top: 60px">
@@ -106,18 +106,26 @@
                                     <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; overflow-y: auto; margin-left: 20px; font-size: 22px"><%= s.get(x).getDescripcion() %></h3>
                                 <% } %>
                             </div>
-                            <div class="row" style="font-family: Helvetica; color: #121212; height: 20px; min-height: 25px; text-align: left; max-height: 140px; overflow-x: auto; margin-left: 18px">
-                                <% for(int i = 0; i < s.get(x).getCategorias().size(); i++){ %>
-                                <h3 id="<%  %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 25px; min-height: 25px; text-align: left; max-height: 20px; overflow-x: auto; margin-left: 20px; font-size: 19px"><%= s.get(x).getCategorias().get(i)+" " %></h3>
-                                <% } %>
+                            <div class="row" style="font-family: Helvetica; color: #121212; height: 35px; min-height: 35px; text-align: left; max-height: 35px; overflow-x: auto; margin-left: 18px">
+                                <%  String t="";
+                                    for(int i = 0; i < s.get(x).getCategorias().size(); i++){ 
+                                        t = t + s.get(x).getCategorias().get(i).trim();
+                                        if(i != s.get(x).getCategorias().size()-1)
+                                            t = t + ", ";
+                                    }
+                                %>
+                                <h3 id="<%= "categoriaID"+(x+1) %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 25px; min-height: 25px; text-align: left; max-height: 20px; overflow-x: auto; margin-left: 20px; font-size: 19px"><%= t %></h3>
                             </div>
                         </div>
                         <div class="col-md-4" style="height: 160px">
                           <div class="col-md-6">
-                            <button class="btn btn-info" data-toggle="modal" data-target="#<%="serv"+(x+1)%>" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -15px">Consultar</button>
+                            <button class="btn btn-info" data-toggle="modal" data-target="#<%="serv"+(x+1)%>" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -20px">Consultar</button>
                           </div>
-                          <div class="col-md-6">
-                            <button class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -40px">Agregar al carrito</button>
+                          <div class="col-md-2">
+                            <input value="1" type="number" min="1" class="form-control" id="<%="cant"+(x+1)%>" name="cant" style="margin-top: 130px; margin-left: -90px; width: 60px;"/>
+                          </div>
+                          <div class="col-md-4">
+                            <button class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -60px" onclick="AGREGARALCARRO('<%= x+1 %>')">Agregar al carrito</button>
                           </div>
                         </div>
                       </div>
@@ -125,7 +133,7 @@
                   </div>
                 </center>
                 <!-- COMIENZO DEL MODAL DE INFORMACION DEL SERVICIO -->
-                <div id="'<%= "serv"+(x+1) %>'" class="modal fade" role="dialog">
+                <div id="<%= "serv"+(x+1) %>" class="modal fade" role="dialog">
                   <div class="modal-dialog" style="width: 70%">
                     <div class="modal-content">
                       <div class="modal-header" style="background-color: #4A4C4E; min-height: 50px; max-height: 50px">
@@ -243,15 +251,43 @@
  
  <script type="text/javascript">
         function CATEGORIA(nomCat) {
-            alert(nomCat);
+            //alert(nomCat);
             //$('#listaQNoEsLista').html('');
-            document.getElementById('fila1').style.display="none";
-            $.get("DevolverServiciosXcat", "categoria="+ nomCat, function(responseJson) {
-                $.each(responseJson, function(index, DtServ) {
-                    
-                });
-            });            
+            //document.getElementById('fila1').style.display="none";
+            for (var i = 0; i < <%= s.size()%>; i++) {
+                var bool = false;
+                //alert(document.getElementById('categoriaID1').innerHTML);
+                //alert('categoriaID' + (i+1));
+                var Cats = document.getElementById('categoriaID' + (i+1)).innerHTML;
+                //alert(Cats);
+                var arrayCat = Cats.split(', ');
+                for (var j = 0; j < arrayCat.length ; j++) {
+                    if (arrayCat[j] === nomCat){
+                        bool = true;
+                    }
+                }
+                if (bool === false){
+                   document.getElementById('fila' + (i+1)).style.display="none"; 
+                }else{
+                   document.getElementById('fila' + (i+1)).style.display="block"; 
+                }
+            }          
         }                
+</script>
+
+<script type="text/javascript">
+        function AGREGARALCARRO(num) {
+            var nickNOM = document.getElementById('titulo' + num).innerHTML; 
+            nickNOM = nickNOM.split(', ');
+            var nick = nickNOM[1];
+            var nom = nickNOM[0];
+            var preServ = document.getElementById('precio' + num).innerHTML;
+            var cantServ = document.getElementById('cant' + num).value;
+            $.post("AgregarAlCarrito", "nomServ="+ nom +"&nickServ=" + nick + "&preServ=" + preServ + "&cant=" + cantServ, function(state) {
+               alert(state);
+            });
+        }
+                
 </script>
 
   </body></html>
