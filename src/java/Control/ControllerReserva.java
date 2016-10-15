@@ -5,6 +5,7 @@
  */
 package Control;
 
+import Modelo.ModelReserva;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,12 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import javax.servlet.http.HttpSession;
 import help4travelling.DtInfoReserva;
-import help4travelling.DtReserva;
 import help4travelling.DtFecha;
 import help4travelling.Estado;
-import help4travelling.Factory;
-import help4travelling.IControladorReserva;
-import static java.lang.System.out;
+
 
 
 public class ControllerReserva extends HttpServlet {
@@ -29,35 +27,24 @@ public class ControllerReserva extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+            
             Calendar fecha = new GregorianCalendar();
             int anio = fecha.get(Calendar.YEAR);
             int mes = fecha.get(Calendar.MONTH);
             int dia = fecha.get(Calendar.DAY_OF_MONTH);
             DtFecha fechaActual = new DtFecha (anio, mes, dia);
-            /* TODO output your page here. You may use following sample code. */
-            // llama la funcion del modelo
-            //le pasa los datos de sesion
-            //HttpSession sesion=request.getSession();
-            //ÀrrayList<DtInfoReservas> infodeReserva = (DtInforeserva) sesion.getParameter(carrito);
-            ArrayList<DtInfoReserva> infodeReserva = new ArrayList();
-            DtInfoReserva dtinfo = new DtInfoReserva("Euro-Vuelo-S", 1, "mHooch", fechaActual, fechaActual, 100);
-            infodeReserva.add(dtinfo);
-            
-            //Obtenemos el valor del año, mes, día,
-            //hora, minuto y segundo del sistema
-            //usando el método get y el parámetro correspondiente
-            
-            /*int precio;
-            for(int i=0; i< infodeReserva;i++)
+            HttpSession session=request.getSession();
+            ArrayList<DtInfoReserva> infodeReserva = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+            int precio=0;
+            System.out.println(infodeReserva.size());
+            for(int i=0; i< infodeReserva.size(); i++)
             {
-               precio+=infodeReserva[i].getPrecioArticulo() * infodeReserva.GetCantidad;
+               precio+=infodeReserva.get(i).getPrecioArticulo() * infodeReserva.get(i).GetCantidad();
+            }
+            ModelReserva modRes = ModelReserva.getInstance();
+            modRes.agregarRes(Estado.Registrada, fechaActual, infodeReserva, "BruceS", precio);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
             
-            }*/
-
-            DtReserva reserva = new DtReserva(Estado.Registrada,fechaActual,infodeReserva,"eWatson",90);
-            IControladorReserva controladorReserva = Factory.GetInstance().getIControladorReserva();
-            controladorReserva.CrearReserva(reserva);
-            out.println("HOLA?");
         } finally {
             
             out.close();

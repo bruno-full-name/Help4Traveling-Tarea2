@@ -43,4 +43,8 @@ public class ModelReserva {
     public ArrayList<DtInfoReserva> ObtenerDatosReserva(int idRes){
         return ICReserva.ObtenerInfoArticulosReservados(idRes);
     }
+    //DtReserva reserva = new DtReserva(Estado.Registrada,fechaActual,infodeReserva,"eWatson",90);      
+    public boolean agregarRes(Estado E, DtFecha fecha, ArrayList<DtInfoReserva> DtInf,String nick,float F){
+        return ICReserva.CrearReserva(new DtReserva(E, fecha, DtInf, nick, F));
+    }
 }
