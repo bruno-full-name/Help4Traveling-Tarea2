@@ -14,7 +14,7 @@
         <group>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarServVisitante.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarPromCliente.jsp</file>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/WEB-INF/web.xml</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerReserva.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/DevolverPromocion.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Modelo/ModelReserva.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/AgregarAlCarrito.java</file>

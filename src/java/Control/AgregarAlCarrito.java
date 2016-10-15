@@ -37,10 +37,11 @@ public class AgregarAlCarrito extends HttpServlet {
         String nickProm = request.getParameter("nickProm");
         String nomProm = request.getParameter("nomProm");
         String precio = request.getParameter("preProm");
+        String cant = request.getParameter("cant");
+        
         float precio2 = 0;
         if (precio != null)
             precio2 = Float.valueOf(precio);
-        String cant = request.getParameter("cant");
         int cant2 = 0;
         if (cant != null)
             cant2 = Integer.valueOf(cant);
@@ -48,14 +49,16 @@ public class AgregarAlCarrito extends HttpServlet {
         String nickServ =  request.getParameter("nickServ");
         String nomServ =  request.getParameter("nomServ");
         String precioServ = request.getParameter("preServ");
+        String cantServ = request.getParameter("cantServ");
+        
         float precioServ2 = 0;
         if (precioServ != null)
             precioServ2 = Float.valueOf(precioServ);
-        String cantServ = request.getParameter("cantServ");
         int cantServ2 = 0;
         if (cantServ != null)
             cantServ2 = Integer.valueOf(cantServ);
-            
+        
+        
         if ( nickProm != null &&  nomProm != null){
             DtInfoReserva carrito = new DtInfoReserva(null, null, cant2, nomProm, nickProm, precio2);
             
@@ -76,6 +79,7 @@ public class AgregarAlCarrito extends HttpServlet {
             request.getRequestDispatcher("consultarReservaActual.jsp").forward(request, response);
         }else if (nickServ != null && nomServ != null){
             DtInfoReserva carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
+            //System.out.println(carrito.GetNombreArticulo() +" "+ carrito.getNickProveedor() +" "+ carrito.GetCantidad() +" "+ carrito.getPrecioArticulo());
             
             HttpSession session = request.getSession();
             ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
@@ -92,7 +96,6 @@ public class AgregarAlCarrito extends HttpServlet {
                 session.setAttribute("ListaInfoRes", listInfoRes);
                 
             }
-            request.getRequestDispatcher("consultarReservaActual.jsp").forward(request, response);
         }
         try {
             /* TODO output your page here. You may use following sample code. */

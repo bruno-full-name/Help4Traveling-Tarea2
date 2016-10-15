@@ -283,9 +283,11 @@
             var nom = nickNOM[0];
             var preServ = document.getElementById('precio' + num).innerHTML;
             var cantServ = document.getElementById('cant' + num).value;
-            $.post("AgregarAlCarrito", "nomServ="+ nom +"&nickServ=" + nick + "&preServ=" + preServ + "&cant=" + cantServ, function(state) {
-               alert(state);
+            //alert(nick + " " + nom + " " +preServ+ " " +cantServ);
+            $.post("AgregarAlCarrito", "nomServ="+ nom +"&nickServ=" + nick + "&preServ=" + preServ + "&cantServ=" + cantServ, function(state) {
+               
             });
+            
         }
                 
 </script>

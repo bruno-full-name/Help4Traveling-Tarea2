@@ -35,6 +35,7 @@ public class ControllerReserva extends HttpServlet {
             DtFecha fechaActual = new DtFecha (anio, mes, dia);
             HttpSession session=request.getSession();
             ArrayList<DtInfoReserva> infodeReserva = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+            session.setAttribute("ListaInfoRes", null);
             int precio=0;
             System.out.println(infodeReserva.size());
             for(int i=0; i< infodeReserva.size(); i++)
