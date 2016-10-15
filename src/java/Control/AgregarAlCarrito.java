@@ -73,6 +73,7 @@ public class AgregarAlCarrito extends HttpServlet {
                 System.out.println(listInfoRes.size());*/
                 session.setAttribute("ListaInfoRes", listInfoRes);
             }
+            request.getRequestDispatcher("consultarReservaActual.jsp").forward(request, response);
         }else if (nickServ != null && nomServ != null){
             DtInfoReserva carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
             
@@ -91,6 +92,7 @@ public class AgregarAlCarrito extends HttpServlet {
                 session.setAttribute("ListaInfoRes", listInfoRes);
                 
             }
+            request.getRequestDispatcher("consultarReservaActual.jsp").forward(request, response);
         }
         try {
             /* TODO output your page here. You may use following sample code. */
