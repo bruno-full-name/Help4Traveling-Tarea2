@@ -45,7 +45,11 @@
               <button class="btn btn-primary" style="height: 32px; font-family: Helvetica; font-size: 20px; margin-top: -7px">Aplicar</button>
             </center>
           </div>
-          <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px"></div>
+          <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px">
+            <h3 style="color: white; margin-top: 35px">Listar:</h3>
+            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px; margin-left: 80px">A-Z</button>
+            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px">$</button>
+          </div>
         </div>
         <div class="row">
           <!-- INICIO "TREEVIEW" CON CATEGORIAS -->
@@ -64,7 +68,7 @@
               <!-- FILA A TENER POR CADA CATEGORIA -->
               <%    for(int x=0; x < c.size(); x++){    %>
                         <div class="row" style="height: 35px">
-                            <button style="height: 32px; width: 100%; font-family: Helvetica; font-size: 18px" class="btn btn-primary"><%= c.get(x).getNombre() %></button>
+                            <button style="height: 32px; width: 100%; font-family: Helvetica; font-size: 18px" class="btn btn-primary" onclick="CATEGORIA('<%= c.get(x).getNombre() %>')"><%= c.get(x).getNombre() %></button>
                         </div>
               <%    }    %>
               <!-- FIN FILA A TENER POR CADA CATEGORIA -->
@@ -72,7 +76,7 @@
           </div>
           <!-- FIN TREEVIEW && INICIO LA OTRA SHIT -->
           <!-- SECCION CON SCROLL DE SERVICIOS -->
-          <div class="col-md-9" style="height: 550px; max-height: 550px; overflow-y: auto; background-color: #E6E6E6">
+          <div id="listaQNoEsLista" class="col-md-9" style="height: 550px; max-height: 550px; overflow-y: auto; background-color: #E6E6E6">
             <!-- COMIENZO FILA A TENER POR CADA SERVICIO -->
             
             <% ArrayList<DtServicio> s = ModelArticulo.getInstance().listarServicios(); %>
@@ -80,7 +84,7 @@
             <%   for(int x = 0; x < s.size(); x++){   %>
             
                 <center>
-                  <div class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
+                  <div id="<%="fila"+(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
                     <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
                       <div class="col-md-9">
                           <h2 style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() %></h2>
@@ -96,15 +100,17 @@
                         </div>
                       </div>
                       <div class="row" style="height: 160px; width: 100%; margin-left: 0px; margin-top: 60px">
-                        <div class="col-md-8" style="height: 150px; min-height: 150px; margin-left: 0px">
-                            <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
-                                <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 160px; min-height: 160px; text-align: left; max-height: 160px; overflow-y: auto; margin-left: 10px; font-size: 18px"><%= s.get(x).getDescripcion() %></h3>
-                            <% } %>
-                        </div>
-                        <div class="col-md-8" style="height: 10px; min-height: 10px; margin-left: 0px">
-                            <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
-                                <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 160px; min-height: 160px; text-align: left; max-height: 160px; overflow-y: auto; margin-left: 10px; font-size: 18px"><%= s.get(x).getDescripcion() %></h3>
-                            <% } %>
+                        <div class="col-md-8" style="height: 175px; min-height: 175px; margin-left: 0px">
+                            <div class="row" style="font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; margin-left: 20px">
+                                <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
+                                    <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; overflow-y: auto; margin-left: 20px; font-size: 22px"><%= s.get(x).getDescripcion() %></h3>
+                                <% } %>
+                            </div>
+                            <div class="row" style="font-family: Helvetica; color: #121212; height: 20px; min-height: 25px; text-align: left; max-height: 140px; overflow-x: auto; margin-left: 18px">
+                                <% for(int i = 0; i < s.get(x).getCategorias().size(); i++){ %>
+                                <h3 id="<%  %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 25px; min-height: 25px; text-align: left; max-height: 20px; overflow-x: auto; margin-left: 20px; font-size: 19px"><%= s.get(x).getCategorias().get(i)+" " %></h3>
+                                <% } %>
+                            </div>
                         </div>
                         <div class="col-md-4" style="height: 160px">
                           <div class="col-md-6">
@@ -119,7 +125,7 @@
                   </div>
                 </center>
                 <!-- COMIENZO DEL MODAL DE INFORMACION DEL SERVICIO -->
-                <div id="<%= "serv"+(x+1) %>" class="modal fade" role="dialog">
+                <div id="'<%= "serv"+(x+1) %>'" class="modal fade" role="dialog">
                   <div class="modal-dialog" style="width: 70%">
                     <div class="modal-content">
                       <div class="modal-header" style="background-color: #4A4C4E; min-height: 50px; max-height: 50px">
@@ -234,5 +240,18 @@
 <!--FOOTER-->
 <!---->
  <jsp:include page="templates/footer.jsp"/>
+ 
+ <script type="text/javascript">
+        function CATEGORIA(nomCat) {
+            alert(nomCat);
+            //$('#listaQNoEsLista').html('');
+            document.getElementById('fila1').style.display="none";
+            $.get("DevolverServiciosXcat", "categoria="+ nomCat, function(responseJson) {
+                $.each(responseJson, function(index, DtServ) {
+                    
+                });
+            });            
+        }                
+</script>
 
   </body></html>

@@ -18,9 +18,9 @@ public class DevolverServiciosXcat extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String cat = request.getParameter("categoria");
         try {
-            if(request.getParameter("categoria") != null){
-                String cat = request.getParameter("categoria");
+            if(cat != null){
                 List<DtServicio> servicios = ModelArticulo.getInstance().serviciosXcat(cat);
                 String json = new Gson().toJson(servicios);
                 response.setContentType("application/json");
