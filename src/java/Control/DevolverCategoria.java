@@ -1,53 +1,23 @@
 package Control;
 
 import Modelo.ModelArticulo;
-import com.google.gson.Gson;
-import help4travelling.DtPromocion;
+import help4travelling.DtCategoria;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DevolverPromocion extends HttpServlet {
+public class DevolverCategoria extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String promo = request.getParameter("descProm");
-        String promo2 = request.getParameter("preProm");
-        DtPromocion p = ModelArticulo.getInstance().datosPromocion(request.getParameter("nomProm"), request.getParameter("nickProm"));
-        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         try {
-            if (ajax) {
-                if (promo == null){
-                    System.out.println("descdescdescdescdesc");
-                    String descuento = String.valueOf(p.GetDescuento());
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(descuento);
-
-                }else if (promo2 == null){
-                    System.out.println("prepreprepreprepre");
-                    String precio = String.valueOf(p.GetPrecio());
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(precio);
-                }else {
-                    System.out.println("servservservservserv");
-                    List<String> servicos = p.GetServicios();
-                    String json = new Gson().toJson(servicos);
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(json);   
-                }
-            } else {
-                System.out.println("????????");
-                // Handle regular (JSP) response.
-            }
-            
+            ArrayList<DtCategoria> cats = ModelArticulo.getInstance().listarCategorias();
+            request.setAttribute("categorias", cats);
         } finally {
             out.close();
         }

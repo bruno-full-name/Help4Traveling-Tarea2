@@ -1,14 +1,18 @@
 package Modelo;
 
+import help4travelling.DtCategoria;
 import help4travelling.DtPromocion;
 import help4travelling.DtServicio;
 import help4travelling.Factory;
 import help4travelling.IControladorArticulo;
+import help4travelling.IControladorCategoria;
 import help4travelling.ManejadorSQL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelArticulo {
     private static IControladorArticulo ICArticulo = Factory.GetInstance().getIControladorArticulo();
+    private static IControladorCategoria ICCategoria = Factory.GetInstance().getIControladorCategoria();
     private static ModelArticulo instancia;
     
     public static ModelArticulo getInstance(){
@@ -40,6 +44,19 @@ public class ModelArticulo {
     public ArrayList<DtServicio> serviciosXprov(String nickP){
         return ICArticulo.ListarServiciosProv(nickP);
     }
+    
+    public ArrayList<DtCategoria> listarCategorias(){
+        return ICCategoria.listarCategorias();
+    }
+    
+    public ArrayList<DtServicio> listarServicios(){
+        return ICArticulo.ListarServicios();
+    }
+    
+    public List<DtServicio> serviciosXcat(String nameCat){
+        return (List)ICCategoria.listarServicios(nameCat);
+    }
+    
 }
     
     

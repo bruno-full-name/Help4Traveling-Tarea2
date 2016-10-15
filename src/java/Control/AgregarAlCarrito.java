@@ -8,11 +8,13 @@ package Control;
 import help4travelling.DtInfoReserva;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,14 +34,26 @@ public class AgregarAlCarrito extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        if (request.getParameter("prom") != null ){
-            String nick = request.getParameter("nickProm2");
-            String nom = request.getParameter("nomProm2");
+  
+        if (request.getParameter("nickProm2") != null ){
+            String nick = request.getParameter("nickProm");
+            String nom = request.getParameter("nomProm");
             String precio = request.getParameter("preProm");
             float precio2 = Float.valueOf(precio);
             String cant = request.getParameter("cant");
             int cant2 = Integer.valueOf(cant);
             DtInfoReserva carrito = new DtInfoReserva(null, null, cant2, nom, nick, precio2);
+            
+            HttpSession session = request.getSession();
+            ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+            if (listInfoRes == null){
+                ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
+                carrito2.add(carrito);
+                session.setAttribute("ListaInfoRes", carrito2);
+            }else{
+                listInfoRes.add(carrito);
+                session.setAttribute("ListaInfoRes", listInfoRes);
+            }
         }
         try {
             /* TODO output your page here. You may use following sample code. */

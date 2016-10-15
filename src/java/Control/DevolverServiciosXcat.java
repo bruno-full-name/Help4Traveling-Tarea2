@@ -1,10 +1,12 @@
 package Control;
 
+import Modelo.ModelArticulo;
+import com.google.gson.Gson;
 import help4travelling.DtServicio;
-import help4travelling.ManejadorSQL;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,11 +20,12 @@ public class DevolverServiciosXcat extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             if(request.getParameter("categoria") != null){
-                ManejadorSQL.GetInstance().init("192.168.10.132");
                 String cat = request.getParameter("categoria");
-                ArrayList<DtServicio> servicios = ManejadorSQL.GetInstance().devolverSerPorCat(cat);
-                request.setAttribute("servicios", servicios);
-                request.getRequestDispatcher("consultarServVisitante.jsp").forward(request, response);
+                List<DtServicio> servicios = ModelArticulo.getInstance().serviciosXcat(cat);
+                String json = new Gson().toJson(servicios);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
             }
         } finally {
             out.close();

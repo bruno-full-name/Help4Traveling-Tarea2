@@ -1,3 +1,4 @@
+<%@page import="Modelo.ModelArticulo"%>
 <%@page import="help4travelling.DtServicio"%>
 <%@page import="help4travelling.DtCategoria"%>
 <%@page import="help4travelling.IControladorCategoria"%>
@@ -22,56 +23,211 @@
         <link href="css/consultarServiciosVisitante.css" rel="stylesheet" type="text/css">
         <link href="css/algo.css" rel="stylesheet" type="text/css">
     </head><body>
-  <jsp:include page="templates/header.jsp"/>
+    <jsp:include page="templates/header.jsp"/>
 <!---->
 <!--CUERPO-->
 <!---->
   <div class="divPrincipal">
 <!---->
-
-      <%-- Cargo todas las categorias del sistema, en una lista(comboBox). --%>
-      
-          <%  ManejadorSQL.GetInstance().init("192.168.10.132"); %>
-          <%!
-              IControladorCategoria ICCategoria = help4travelling.Factory.GetInstance().getIControladorCategoria();
-              ArrayList<DtCategoria> cats = ICCategoria.listarCategorias();
-          %>
-          
-          <form action="DevolverServiciosXcat" method="post">
-              <select name="categoria" size="20">
-                  <% // cargo proveedores en combobox desde la bd.
-                      for(int x = 0; x < cats.size(); x++){
-                  %>
-                  <option> <%= cats.get(x).getNombre().trim() %> </option>
-                  <% }%>
-              </select>
-              <input type="submit" value="Seleccionar" />
-          </form>
-      
-      <%-- Cargo todos los proveedores desde la bd, en un comboBox. --%>
-      
-      <% if(request.getAttribute("servicios") != null){ %>
-          <% ArrayList<DtServicio> s = (ArrayList<DtServicio>)request.getAttribute("servicios");%>
-          <% if(s.size() != 0){ %>
-                  <form action="DevolverServicio" method="post">
-                      <select name="servicio">
-                      <% for(int x = 0; x < s.size(); x++){ %>
-                              <option> <%= s.get(x).getNickProveedor()+ ", " + s.get(x).getNombre() %> </option>
-                      <% }%>
-                      </select>
-                      <input type="submit" value="Seleccionar" />
-                  </form>
-          <% } %>
-      <% } // endif hay servicios o no%>
-          
-      <%-- Muestro datos del servicio seleccionado. --%>
-      
-      <% DtServicio serv = (DtServicio)request.getAttribute("serv"); %>
     
-      <% if(serv != null){ %>
-                    
+    <div class="section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12" style="border-bottom-style: solid; border-color: rgb(1, 82, 158); border-width: 9px">
+            <h1 class="text-center" style="color: #313131; font-family: Helvetica; ">SERVICIOS</h1>
+          </div>
+        </div>
+        <div class="row" style="background-color: #01529e; min-height: 70px; max-height: 70px">
+          <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px"></div>
+          <div class="col-md-6" style="background-color: #01529e; min-height: 70px; max-height: 70px">
+            <center>
+              <input type="text" style="width: 80%; height: 32px; margin-top: 15px; font-family: Helvetica; font-size: 22px; font-style: italic; color: #01529e" value="Introduzca un filtro...">
+              <button class="btn btn-primary" style="height: 32px; font-family: Helvetica; font-size: 20px; margin-top: -7px">Aplicar</button>
+            </center>
+          </div>
+          <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px"></div>
+        </div>
+        <div class="row">
+          <!-- INICIO "TREEVIEW" CON CATEGORIAS -->
+          <div class="col-md-3" style="background-color: white; min-height: 550px; max-height: 550px; overflow-y: auto">
+            <div class="col-md-12">
+              <div class="row" style="margin-top: 20px; border-top-style: solid; border-width: 4px; border-color: #01529e">
+                <h3 style="height: 35px; font-family: Helvetica; color: #01529e; margin-top: 10px">
+                  <center>
+                    <b>CATEGORÍAS</b>
+                  </center>
+                </h3>
+              </div>
+                
+                <%!   ArrayList<DtCategoria> c = ModelArticulo.getInstance().listarCategorias();   %>
+                
+              <!-- FILA A TENER POR CADA CATEGORIA -->
+              <%    for(int x=0; x < c.size(); x++){    %>
+                        <div class="row" style="height: 35px">
+                            <button style="height: 32px; width: 100%; font-family: Helvetica; font-size: 18px" class="btn btn-primary"><%= c.get(x).getNombre() %></button>
+                        </div>
+              <%    }    %>
+              <!-- FIN FILA A TENER POR CADA CATEGORIA -->
+            </div>
+          </div>
+          <!-- FIN TREEVIEW && INICIO LA OTRA SHIT -->
+          <!-- SECCION CON SCROLL DE SERVICIOS -->
+          <div class="col-md-9" style="height: 550px; max-height: 550px; overflow-y: auto; background-color: #E6E6E6">
+            <!-- COMIENZO FILA A TENER POR CADA SERVICIO -->
+            
+            <% ArrayList<DtServicio> s = ModelArticulo.getInstance().listarServicios(); %>
+            
+            <%   for(int x = 0; x < s.size(); x++){   %>
+            
+                <center>
+                  <div class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
+                    <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
+                      <div class="col-md-9">
+                          <h2 style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() %></h2>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="col-md-2">
+                          <h2 style="margin-top: 6px; font-family: Helvetica; color: #359151; margin-left: 0px; font-size: 30px">
+                            <b>$</b>
+                          </h2>
+                        </div>
+                        <div class="col-md-10">
+                            <h2 style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -10px; text-align: left; font-size: 25px"><%= s.get(x).getPrecio().toString().trim() %></h2>
+                        </div>
+                      </div>
+                      <div class="row" style="height: 160px; width: 100%; margin-left: 0px; margin-top: 60px">
+                        <div class="col-md-8" style="height: 150px; min-height: 150px; margin-left: 0px">
+                            <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
+                                <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 160px; min-height: 160px; text-align: left; max-height: 160px; overflow-y: auto; margin-left: 10px; font-size: 18px"><%= s.get(x).getDescripcion() %></h3>
+                            <% } %>
+                        </div>
+                        <div class="col-md-8" style="height: 10px; min-height: 10px; margin-left: 0px">
+                            <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
+                                <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 160px; min-height: 160px; text-align: left; max-height: 160px; overflow-y: auto; margin-left: 10px; font-size: 18px"><%= s.get(x).getDescripcion() %></h3>
+                            <% } %>
+                        </div>
+                        <div class="col-md-4" style="height: 160px">
+                          <div class="col-md-6">
+                            <button class="btn btn-info" data-toggle="modal" data-target="#<%="serv"+(x+1)%>" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -15px">Consultar</button>
+                          </div>
+                          <div class="col-md-6">
+                            <button class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -40px">Agregar al carrito</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </center>
+                <!-- COMIENZO DEL MODAL DE INFORMACION DEL SERVICIO -->
+                <div id="<%= "serv"+(x+1) %>" class="modal fade" role="dialog">
+                  <div class="modal-dialog" style="width: 70%">
+                    <div class="modal-content">
+                      <div class="modal-header" style="background-color: #4A4C4E; min-height: 50px; max-height: 50px">
+                        <button type="button" class="close" data-dismiss="modal" style="color: white">×</button>
+                        <h3 class="modal-title" style="font-family: Helvetica; color: #8e969f; margin-top: -5px">
+                          <center><%= s.get(x).getNombre().trim() %></center>
+                        </h3>
+                      </div>
+                      <div class="modal-body" style="height: 70%; max-height: 650px; min-height: 650px; overflow-y: auto; background-color: #E6E6E6">
+                        <div class="row" style="height: 50%; margin-top: -15px">
+                          <div class="row" style="margin-left: 0; width: 100%; background-color: #D0D0D0; height: 40px; max-height: 40px; min-height: 40px">
+                            <h3 style="margin-top: 6px; font-family: Helvetica; color: #4A494E; margin-left: 10px">Imagenes</h3>
+                          </div>
+                          <!-- CARRUSEL CON IMAGENES DEL SERVICIO -->
+                          <div class="row" style="margin-left: 0; width: 100%; height: 270px; max-height: 270px; min-height: 270px">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-6">
+                              <div id="imgs" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                  <li data-target="#imgs" data-slide-to="0" class="active"></li>
+                                  <li data-target="#imgs" data-slide-to="1"></li>
+                                  <li data-target="#imgs" data-slide-to="2"></li>
+                                </ol>
+                                <div class="carousel-inner" role="listbox">
+                                  <div class="item active">
+                                    <img src="R4IMYQNVRI.jpg" style="min-height: 270px; max-height: 270px; max-width: 470px; min-width: 470px">
+                                  </div>
+                                  <div class="item">
+                                    <img src="YH1RSSLXJC.jpg" style="min-height: 270px; max-height: 270px; max-width: 470px; min-width: 470px">
+                                  </div>
+                                  <div class="item">
+                                    <img src="left.svg" style="min-height: 270px; max-height: 270px; max-width: 470px; min-width: 470px">
+                                  </div>
+                                </div>
+                                <a class="left carousel-control" href="#imgs" role="button" data-slide="prev">
+                                  <span aria-hidden="true" style="font-family: Helvetica; font-style: italic; font-size: 26px">&lt;</span>
+                                </a>
+                                <a class="right carousel-control" href="#imgs" role="button" data-slide="next">
+                                  <span aria-hidden="true" style="font-family: Helvetica; font-style: italic; font-size: 26px">&gt;</span>
+                                </a>
+                              </div>
+                            </div>
+                            <div class="col-md-3"></div>
+                          </div>
+                        </div>
+                        <!-- FIN DEL CARRUSEL DE IMAGENES && COMIENZO SECCION INFORMACION-->
+                        <div class="row" style="height: 52%">
+                          <div class="row" style="margin-left: 0; width: 100%; background-color: #D0D0D0; height: 40px; max-height: 40px; min-height: 40px">
+                            <h3 style="margin-top: 6px; font-family: Helvetica; color: #4A494E; margin-left: 10px">Información</h3>
+                          </div>
+                          <!-- SECCION CON DESCRIPCION -->
+                          <div class="row" style="margin-left: 0; width: 100%; height: 300px; max-height: 300px; min-height: 300px">
+                            <div class="col-md-4">
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>PROVEEDOR:</center>
+                              </h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>NOMBRE:</center>
+                              </h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>PRECIO:</center>
+                              </h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>CIUDAD ORIGEN:</center>
+                              </h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>CIUDAD DESTINO:</center>
+                              </h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid">
+                                <center>DESCRIPCION:</center>
+                              </h4>
+                            </div>
+                            <!-- FIN SECCION DESCRIPTIVA && COMIENZO INFORMACION A CARGAR -->
+                            <div class="col-md-8">
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getNickProveedor().trim() %></h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getNombre().trim() %></h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getPrecio().toString().trim() %></h4>
+                              <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getCiudadOrigen().trim() %></h4>
+                              <% if(s.get(x).getCiudadDestino() != null && !s.get(x).getCiudadDestino().isEmpty()){ %>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getCiudadDestino().trim() %></h4>
+                            <% }else{ %>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F">(A confirmar...)</h4>
+                            <% } %>
+                            <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F"><%= s.get(x).getDescripcion().trim() %></h4>
+                            <% }else{ %>
+                                <h4 style="font-family: Helvetica; color: #4A4C4E; border-bottom-style: solid; border-color: #80878F">(...)</h4>
+                            <% } %>
+                            
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer" style="background-color: #8e969f">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="background-color: #4A4C4E; color: white; border: none; font-family: Helvetica">ACEPTAR</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- FIN DE LA FILA A TENER POR CADA SERVICIO -->
+                
+            <%  }    %>
+                
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <% } // endif promocion obtenida es null o no. %> 
 <!---->
   </div>
 <!---->

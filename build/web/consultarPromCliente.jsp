@@ -33,7 +33,7 @@
             <input type="text" class="form-control" id="barraDeBusqueda" placeholder="Servicio o promocion">
           </div>
           <div class="col-md-1">
-            <button type="submit" class="btn button">Buscar</button>
+            <button name="buscar" id="buscar" type="submit" class="btn button">Buscar</button>
           </div>
         </div>
       </div>
@@ -89,17 +89,13 @@
                 <h4 style="font-family: Helvetica; font-size: 16; margin-top: 40px">Cantidad:</h4>
               </div>
                     <div class="col-md-6">
-                        <form id="from_id" action="DevolverPromocion" method="post" class="from_class">
+                        <form id="from_id2" action="AgregarAlCarrito" method="post" class="from_class">
                             <input type="text" class="form-control" id="nickProm" name="nomProm" readonly/>
                             <input type="text" class="form-control" id="nomProm" name="nickProm" readonly/>
-                        </form>
-                        <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
-                        <form id="from_id2" action="AgregarAlCarrito" method="post" class="from_class">
+                            <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
                             <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
                             <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="margin-top: 20px"/>
-                            <input type="hidden" class="form-control" id="nickProm2" name="nomProm2" />
-                            <input type="hidden" class="form-control" id="nomProm2" name="nickProm2" />
-                            <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
+                            <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" id="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
                         </form>
                     </div>
             </div>
@@ -141,10 +137,36 @@
         $(this).addClass('selected').siblings().removeClass('selected');    
         var value = $(this).find('td:first').html();
         var value2 = $(this).find("td").eq(1).html();
-        if (value != undefined){
+        if (value !== undefined){
             document.getElementById('nickProm').value = value2;
             document.getElementById('nomProm').value = value;
-            document.getElementById("from_id").submit();
+            
+            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value, function(responseText) {
+                document.getElementById('descProm').value = responseText;
+            });
+            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').value, function(responseText) {
+                document.getElementById('preProm').value = responseText;
+            });
+            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').value +"&preProm=" + document.getElementById('preProm').value, function(responseJson) {
+                $("#tbody").children().remove();
+                var tblBody  = document.getElementById("tbody");                          // Find all child elements with tag name "option" and remove them (just to prevent duplicate options when button is pressed again).
+                $.each(responseJson, function(index, item) { // Iterate over the JSON array.
+                   var row = document.createElement("tr");
+
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode(document.getElementById('nickProm').value);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+
+                    var cell = document.createElement("td");
+                    var cellText = document.createTextNode(item);
+                    cell.appendChild(cellText);
+                    row.appendChild(cell);
+
+                    tblBody.appendChild(row);      // Create HTML <li> element, set its text content with currently iterated item and append it to the <ul>.
+                });
+            });
+               
         }
          
     });
@@ -152,48 +174,6 @@
  /*$('.ok').on('click', function(e){
      alert($("#tabla tr.selected td:first").html());
  });*/
-</script>
-    
-<script type="text/javascript">
-        function ALGO() {
-            var val1 = '<%=request.getAttribute("nomProm")%>';
-            var val2 = '<%=request.getAttribute("nickProm")%>';
-            var val3 = '<%=request.getAttribute("descProm")%>';
-            var val4 = '<%=request.getAttribute("preProm")%>';
-            var val5 = '<%=request.getAttribute("servProm")%>';
-            
-            if (val1 != "null" ||  val2 != "null"){
-                document.getElementById('nickProm').value = val1;
-                document.getElementById('nomProm').value = val2;
-                document.getElementById('nickProm2').value = val1;
-                document.getElementById('nomProm2').value = val2;
-                document.getElementById('descProm').value = val3 + "%";
-                document.getElementById('preProm').value = val4;
-     
-                var partsArray1 = val5.split('[');
-                var partsArray2 = partsArray1[1].split(']');
-                var partsArray = partsArray2[0].split(',');
-                var tblBody  = document.getElementById("tbody");
-
-                for (var i = 0; i < partsArray.length; i++) {
-                    var row = document.createElement("tr");
-
-                    var cell = document.createElement("td");
-                    var cellText = document.createTextNode(val2);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-
-                    var cell = document.createElement("td");
-                    var cellText = document.createTextNode(partsArray[i]);
-                    cell.appendChild(cellText);
-                    row.appendChild(cell);
-
-                    tblBody.appendChild(row);
-                }
-            }
-        }
-            
-                
 </script>
 
 <script type="text/javascript">
@@ -204,10 +184,7 @@
                document.getElementById("from_id2").submit();
            }
         }
-            
                 
 </script>
-
-<script type="text/javascript"> window.onload=ALGO();</script>
 
 </body></html>
