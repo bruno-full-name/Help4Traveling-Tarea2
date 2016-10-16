@@ -36,4 +36,13 @@ html, body{
         background: #191919;
         color: white;
 }
+.box {
+    width: 300px;
+    height: 15px;
+    border: 1px solid red;
+    margin: 4px 0;
+    padding: 4px;
+    position: relative;
+}
+
 
