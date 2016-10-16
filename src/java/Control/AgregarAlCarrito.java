@@ -58,35 +58,40 @@ public class AgregarAlCarrito extends HttpServlet {
         if (cantServ != null)
             cantServ2 = Integer.valueOf(cantServ);
         
-        
+         ArrayList<DtInfoReserva> listInfoRes= null;
+         DtInfoReserva carrito = null;
+         HttpSession session= null;
         if ( nickProm != null &&  nomProm != null){
-            DtInfoReserva carrito = new DtInfoReserva(null, null, cant2, nomProm, nickProm, precio2);
-            
-            HttpSession session = request.getSession();
-            ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
-            if (listInfoRes == null){
-                ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
-                carrito2.add(carrito);
-                session.setAttribute("ListaInfoRes", carrito2);
-            }else{
-                listInfoRes.add(carrito);
-                session.setAttribute("ListaInfoRes", listInfoRes);
-            }
-
+            carrito = new DtInfoReserva(null, null, cant2, nomProm, nickProm, precio2); 
+            session = request.getSession();
+            listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
         }else if (nickServ != null && nomServ != null){
-            DtInfoReserva carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
-
-            HttpSession session = request.getSession();
-            ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
-            if (listInfoRes == null){
-                ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
-                carrito2.add(carrito);
-                session.setAttribute("ListaInfoRes", carrito2);
-            }else{
-                listInfoRes.add(carrito);
-                session.setAttribute("ListaInfoRes", listInfoRes);
-                
+            carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
+            session = request.getSession();
+            listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+        }
+        
+        
+        if (listInfoRes == null){
+            ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
+            carrito2.add(carrito);
+            session.setAttribute("ListaInfoRes", carrito2);
+        }else{
+            boolean ent = false;
+            for (int i=0; i < listInfoRes.size(); i++){
+                //System.out.println("--------------------------------------------------------------------");
+                //System.out.println(listInfoRes.get(i).GetNombreArticulo() +" "+ carrito.GetNombreArticulo());
+                //System.out.println(listInfoRes.get(i).getNickProveedor() +" "+ carrito.getNickProveedor());
+                if(listInfoRes.get(i).GetNombreArticulo().equals(carrito.GetNombreArticulo())  && listInfoRes.get(i).getNickProveedor().equals(carrito.getNickProveedor())){
+                    listInfoRes.get(i).setCantidad(listInfoRes.get(i).GetCantidad() + carrito.GetCantidad());
+                    ent = true;
+                    //System.out.println("true");
+                }
             }
+            if (ent == false){
+                listInfoRes.add(carrito);
+            }            
+            session.setAttribute("ListaInfoRes", listInfoRes);
         }
         try {
             /* TODO output your page here. You may use following sample code. */

@@ -33,6 +33,27 @@
                 	background-size: 100% 100%;
         		}
     </style>
+    <script type="text/javascript">
+     function Tamal(){
+            var Msg = "<%=request.getAttribute("error_registro")%>";
+            var Msg2 = '<%=request.getAttribute("mensaje")%>';
+
+                if (Msg !== "null") {
+                    if (Msg === "nick") {
+                        alert("El Nick ya fue tomado por otro usuario");
+                    } else if (Msg === "mail") {
+                        alert("El E-mail ya fue tomado por otro usuario");
+                    } else if (Msg === "pass") {
+                        alert("Las claves no coinciden");
+                    }
+                } else if (Msg2 !== "null") {
+                    alert("Exito papu");
+                }
+            }
+        
+        </script>
+        
+        <script type="text/javascript"> window.onload = Tamal;</script>
     <jsp:include page="templates/header.jsp"/>
 <!---->
 <!--CUERPO-->

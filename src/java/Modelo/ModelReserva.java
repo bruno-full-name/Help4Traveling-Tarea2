@@ -47,4 +47,8 @@ public class ModelReserva {
     public boolean agregarRes(Estado E, DtFecha fecha, ArrayList<DtInfoReserva> DtInf,String nick,float F){
         return ICReserva.CrearReserva(new DtReserva(E, fecha, DtInf, nick, F));
     }
+    
+    public boolean cancelarReserva(int id){
+        return ICReserva.actualizarEstado(Estado.Cancelada, id);
+    }
 }

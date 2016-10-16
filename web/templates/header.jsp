@@ -76,7 +76,7 @@
                         <label for="nick" class="control-label">Nick</label>
                       </div>
                       <div class="col-sm-9">
-                        <input name="nick" type="text" class="form-control" id="nick" placeholder="Nick">
+                          <input name="nick" type="text" class="form-control" id="nick" placeholder="Nick">
                       </div>
                     </div>
                     <div class="form-group">

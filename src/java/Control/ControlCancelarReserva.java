@@ -1,58 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Control;
 
-import Modelo.EstadoSesion;
-import Modelo.ModelUsuario;
+import Modelo.ModelReserva;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Pedro Moretto
- */
+public class ControlCancelarReserva extends HttpServlet {
 
-public class IniciarSesion extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-        HttpSession objSesion = null;
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String nickname = request.getParameter("idNick");
-        String password = request.getParameter("idPass");
         
-        EstadoSesion nuevoEstado;
-        RequestDispatcher dispatcher = null;
+        String id2 = request.getParameter("id");
+        int id = 0;
+        if (id2 != null)
+            id = Integer.valueOf(id2);
         
         try {
-            boolean usr = ModelUsuario.getInstance().autenticarCliente(nickname, password);    
-            out.print(usr);
-            if(!usr){
-                nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
-                dispatcher = request.getRequestDispatcher("errorVisitante.jsp");
-            } else {
-                dispatcher = request.getRequestDispatcher("inicioCliente.jsp");
-                nuevoEstado = EstadoSesion.LOGIN_CORRECTO;
-                request.getSession().setAttribute("usuario_logueado", nickname);
-            }
-        } catch(Exception ex){
-        nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
-        }
-        request.getSession().setAttribute("estado_sesion", nuevoEstado);
-        dispatcher.forward(request, response);
-
-            
+            boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+            if (ajax) {
+                ModelReserva.getInstance().cancelarReserva(id);
+            }           
         } finally {
-            
+            out.close();
         }
     }
 

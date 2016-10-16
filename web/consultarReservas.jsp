@@ -51,7 +51,7 @@
               <div class="col-md-4" style="background-color: #01529e; min-height: 70px; max-height: 70px">
                 <div class="col-md-6"></div>
                 <div class="col-md-6">
-                  <button class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 15px; margin-left: 20px">Cancelar reserva</button>
+                  <button id="cancel" class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 15px; margin-left: 20px" onclick="cancelar()">Cancelar reserva</button>
                 </div>
               </div>
           </div>
@@ -109,9 +109,10 @@
         function CONSULTAR(id, name) {
             //alert("holaaaaaaaaaa");
             //alert(id + " " + name);
+            document.getElementById("cancel").value=id;
             $.get("ControllerInfoReserva", "cli="+ name +"&resID=" + id + "&num=1", function(responseJson) {
                 //alert(responseJson);
-                
+                document.getElementById("tbody")
                 $("#tbody").children().remove();
                 var tblBody  = document.getElementById("tbody");
                 
@@ -151,7 +152,16 @@
         }
 
 </script>
-
+<script>
+        function cancelar(){
+            if(document.getElementById("cancel").value != ""){
+               $.get("ControlCancelarReserva", "id="+ document.getElementById("cancel").value , function(resonse) {
+                    document.getElementById("estadoAct").innerHTML = "Cancelada";
+                    alert("Reserva Cancelada");
+                }); 
+            }            
+        }
+</script>
 
 
 </body></html>

@@ -23,7 +23,7 @@
   <link href="css/consultarProveedoresVisitante.css" rel="stylesheet" type="text/css">
   <link href="css/algo.css" rel="stylesheet" type="text/css">
 </head><body>
-       <jsp:include page="templates/headerC.jsp"/>
+     <jsp:include page="templates/headerC.jsp"/>
 <!---->
 <!--CUERPO-->
 <!---->
@@ -61,15 +61,15 @@
             <%   for(int x = 0; x < p.size(); x++){   %>
             
                     <div id="<%="p"+(x+1)%>" class="row" style="height: 600px; max-height: 600px; width: 100%;">
-                      <div class="row" style="height: 7%; max-height: 7%; background-color: #4A4C4E; margin-left: 1px">
-                        <h3 style="margin-top: 8px; font-family: Helvetica; color: #80878F">
+                      <div class="row" style="height: 7%; max-height: 7%; background-color: white; margin-left: 1px; border-bottom-style: solid; border-width: 5px; border-color: #01529e">
+                        <h3 style="margin-top: 8px; font-family: Helvetica; color: #01529e">
                             <center><%= p.get(x).getNick().trim() %></center>
                         </h3>
                       </div>
-                      <div class="row" style="height: 93%; max-height: 93%; background-color: #8e969f; margin-left: 1px">
+                      <div class="row" style="height: 93%; max-height: 93%; background-color: white; margin-left: 1px">
                         <div class="col-md-6">
                           <div class="row" style="min-width: 100%; max-width: 100%; min-height: 60%; max-height: 60%; margin-left: 1px">
-                            <h3 style="margin-top: 0; background-color: #80878F; color: #4A4C4E; font-family: Helvetica; height: 5%">
+                            <h3 style="margin-top: 0; background-color: #01529e; color: white; font-family: Helvetica; height: 5%">
                               <center>Imagen</center>
                             </h3>
                               <img src="data:image;base64,@System.Convert.ToBase64String(<%= ModelUsuario.getInstance().getImagen(p.get(x).getNick()) %>)" style="min-width: 100%; max-width: 100%; width: 100%; min-height: 55%; max-height: 55%; height: 55%; margin-top: -10px; border: none">
@@ -79,7 +79,7 @@
                         <div class="col-md-6">
                           <div class="row" style="min-width: 100%; max-width: 100%; min-height: 100%; max-height: 100%; margin-left: 1px">
                             <div class="row" style="min-width: 100%; max-width: 100%; min-height: 5%; max-height: 5%; margin-left: 1px">
-                              <h3 style="margin-top: 0; background-color: #80878F; color: #4A4C4E; font-family: Helvetica; height: 5%">
+                              <h3 style="margin-top: 0; background-color: #01529e; color: white; font-family: Helvetica; height: 5%">
                                 <center>Información</center>
                               </h3>
                             </div>
@@ -120,7 +120,7 @@
                               </div>
                             </div>
                             <div class="row" style="min-width: 100%; max-width: 100%; min-height: 10%; max-height: 10%; margin-left: 1px; margin-top: 25px">
-                              <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#<%="modalProv"+(x+1)%>" style="width: 100%; height: 10%; color: #80878F; background-color: #4A4C4E; border:none; font-family: Helvetica; font-size: 22px">Ver Servicios</button>
+                              <button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#<%="modalProv"+(x+1)%>" style="width: 100%; height: 10%; border:none; font-family: Helvetica; font-size: 22px">Ver Servicios</button>
                             </div>
                             <!-- MODAL CON INFORMACION DE LOS SERVICIOS DE CADA PROVEEDOR -->
                             <!-- Modal -->

@@ -53,9 +53,10 @@ public class ControllerInfoReserva extends HttpServlet {
                 response.getWriter().write(json);
             }
         } else {
-            Integer[] idReservas = modRes.ObtenerReservas(cli);
+            String nick = (String) request.getSession().getAttribute("usuario_logueado");
+            Integer[] idReservas = modRes.ObtenerReservas(nick);
             request.setAttribute("arrayReservas", idReservas);
-            request.setAttribute("namecli", cli);
+            request.setAttribute("namecli", nick);
             request.getRequestDispatcher("consultarReservas.jsp").forward(request, response);
         }       
         

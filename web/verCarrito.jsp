@@ -98,7 +98,7 @@
                     <h4 style="font-family: Helvetica; font-size: 20px; margin-top: 50%"><%= (lserv.get(i).getPrecioArticulo())*(lserv.get(i).GetCantidad()) %></h4>
                   </td>
                 </tr>
-                <%total =+ lserv.get(i).getPrecioArticulo(); %>                    
+                <%total += lserv.get(i).getPrecioArticulo(); %>                    
                     <% } %>
                 <!-- FIN DE LA FILA A TENER POR CADA ITEM -->
               </tbody>
@@ -123,21 +123,13 @@
               </div>
             </div>
             <div class="row" style="height: 40%; min-height: 30%; max-height: 30%"></div>
-            <button class="btn btn-success" style="width: 20%; height: 45px; font-family: Helvetica; font-size: 22px; margin-left: 75%; margin-top: -55px" onclick="comprar()">Comprar</button>
+            <form action="../ControllerReserva" method="post">
+                <button type="submit" class="btn btn-success" style="width: 20%; height: 45px; font-family: Helvetica; font-size: 22px; margin-left: 75%; margin-top: -55px" onclick="comprar()">Comprar</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
   
-
-</body>
-                
-                
-                
-                
-                
-        
-        <jsp:include page="templates/footer.jsp"/>
-        
-
-</html>
+<jsp:include page="templates/footer.jsp"/>
+</body></html>

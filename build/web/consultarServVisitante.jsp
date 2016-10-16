@@ -15,14 +15,14 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html><head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href="css/consultarServiciosVisitante.css" rel="stylesheet" type="text/css">
-        <link href="css/algo.css" rel="stylesheet" type="text/css">
-    </head><body>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/consultarServicios.css" rel="stylesheet" type="text/css">
+    <link href="css/algo.css" rel="stylesheet" type="text/css">
+  </head><body>
     <jsp:include page="templates/header.jsp"/>
 <!---->
 <!--CUERPO-->
@@ -41,19 +41,19 @@
           <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px"></div>
           <div class="col-md-6" style="background-color: #01529e; min-height: 70px; max-height: 70px">
             <center>
-                <input type="text" style="width: 80%; height: 32px; margin-top: 15px; font-family: Helvetica; font-size: 22px; font-style: italic; color: #01529e" placeholder="Introduzca un filtro...">
-              <button class="btn btn-primary" style="height: 32px; font-family: Helvetica; font-size: 20px; margin-top: -7px">Aplicar</button>
+                <input id="buscarText" type="text" style="width: 80%; height: 32px; margin-top: 15px; font-family: Helvetica; font-size: 22px; font-style: italic; color: #01529e" onkeydown = "if (event.keyCode == 13)BUSCAR()" placeholder="Introduzca un filtro...">
+                <button class="btn btn-primary" style="height: 32px; font-family: Helvetica; font-size: 20px; margin-top: -7px" onclick="BUSCAR()">Aplicar</button>
             </center>
           </div>
           <div class="col-md-3" style="background-color: #01529e; min-height: 70px; max-height: 70px">
             <h3 style="color: white; margin-top: 15px">Listar:</h3>
-            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px; margin-left: 80px">A-Z</button>
-            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px">$</button>
+            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px; margin-left: 80px" onclick="ORDENARALFA()">A-Z</button>
+            <button class="btn btn-primary" style="font-family: Helvetica; width: 60px; margin-top: -65px" onclick="ORDENARPRECIO()">$</button>
           </div>
         </div>
         <div class="row">
           <!-- INICIO "TREEVIEW" CON CATEGORIAS -->
-          <div class="col-md-3" style="background-color: white; min-height: 550px; max-height: 550px; overflow-y: auto">
+          <div id="categoriasArbol" class="col-md-3" style="background-color: white; min-height: 550px; max-height: 550px; overflow-y: auto">
             <div class="col-md-12">
               <div class="row" style="margin-top: 20px; border-top-style: solid; border-width: 4px; border-color: #01529e">
                 <h3 style="height: 35px; font-family: Helvetica; color: #01529e; margin-top: 10px">
@@ -84,51 +84,49 @@
             <%   for(int x = 0; x < s.size(); x++){   %>
             
                 <center>
-                  <div id="<%="fila"+(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
-                    <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
-                      <div class="col-md-9">
-                          <h2 id="<%= "titulo"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() + ", " + s.get(x).getNickProveedor().trim() %></h2>
-                      </div>
-                      <div class="col-md-3">
-                        <div class="col-md-2">
-                          <h2 style="margin-top: 6px; font-family: Helvetica; color: #359151; margin-left: 0px; font-size: 30px">
-                            <b>$</b>
-                          </h2>
-                        </div>
-                        <div class="col-md-10">
-                            <h2 id="<%= "precio"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -10px; text-align: left; font-size: 25px"><%= s.get(x).getPrecio().toString().trim() %></h2>
-                        </div>
-                      </div>
-                      <div class="row" style="height: 160px; width: 100%; margin-left: 0px; margin-top: 60px">
-                        <div class="col-md-8" style="height: 175px; min-height: 175px; margin-left: 0px">
-                            <div class="row" style="font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; margin-left: 20px">
-                                <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
-                                    <h3 style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; overflow-y: auto; margin-left: 20px; font-size: 22px"><%= s.get(x).getDescripcion() %></h3>
-                                <% } %>
+                  <div id="<%="fila"+(x+1)%>" value="<%=(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
+                    <div id="<%="contenido"+(x+1)%>" class="row" style="margin-right: 0px; margin-left: 0px">
+                        <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
+                          <div class="col-md-9">
+                              <h2 id="<%= "titulo"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"><%= s.get(x).getNombre().trim() + ", " + s.get(x).getNickProveedor().trim() %></h2>
+                          </div>
+                          <div class="col-md-3">
+                            <div class="col-md-2">
+                              <h2 style="margin-top: 6px; font-family: Helvetica; color: #359151; margin-left: 0px; font-size: 30px">
+                                <b>$</b>
+                              </h2>
                             </div>
-                            <div class="row" style="font-family: Helvetica; color: #121212; height: 35px; min-height: 35px; text-align: left; max-height: 35px; overflow-x: auto; margin-left: 18px">
-                                <%  String t="";
-                                    for(int i = 0; i < s.get(x).getCategorias().size(); i++){ 
-                                        t = t + s.get(x).getCategorias().get(i).trim();
-                                        if(i != s.get(x).getCategorias().size()-1)
-                                            t = t + ", ";
-                                    }
-                                %>
-                                <h3 id="<%= "categoriaID"+(x+1) %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 25px; min-height: 25px; text-align: left; max-height: 20px; overflow-x: auto; margin-left: 20px; font-size: 19px"><%= t %></h3>
+                            <div class="col-md-10">
+                                <h2 id="<%= "precio"+(x+1) %>" style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -10px; text-align: left; font-size: 25px"><%= s.get(x).getPrecio().toString().trim() %></h2>
                             </div>
+                          </div>
+                          <div class="row" style="height: 160px; width: 100%; margin-left: 0px; margin-top: 60px">
+                            <div class="col-md-8" style="height: 175px; min-height: 175px; margin-left: 0px">
+                                <div class="row" style="font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; margin-left: 20px">
+                                    <% if(s.get(x).getDescripcion() != null && !s.get(x).getDescripcion().isEmpty()){ %>
+                                        <h3 id="<%= "descipcion"+(x+1) %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 140px; min-height: 140px; text-align: left; max-height: 140px; overflow-y: auto; margin-left: 20px; font-size: 22px"><%= s.get(x).getDescripcion() %></h3>
+                                    <% } %>
+                                </div>
+                                <div class="row" style="font-family: Helvetica; color: #121212; height: 35px; min-height: 35px; text-align: left; max-height: 35px; overflow-x: auto; margin-left: 18px">
+                                    <%  String t="";
+                                        for(int i = 0; i < s.get(x).getCategorias().size(); i++){ 
+                                            t = t + s.get(x).getCategorias().get(i).trim();
+                                            if(i != s.get(x).getCategorias().size()-1)
+                                                t = t + ", ";
+                                        }
+                                    %>
+                                    <h3 id="<%= "categoriaID"+(x+1) %>" style="margin-top: 0px; font-family: Helvetica; color: #121212; height: 25px; min-height: 25px; text-align: left; max-height: 20px; overflow-x: auto; margin-left: 20px; font-size: 19px"><%= t %></h3>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="height: 160px">
+                              <div class="col-md-6">
+                              </div>
+                              <div class="col-md-6">
+                                <button class="btn btn-info" data-toggle="modal" data-target="#<%="serv"+(x+1)%>" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -20px">Consultar</button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-md-4" style="height: 160px">
-                          <div class="col-md-6">
-                            <button class="btn btn-info" data-toggle="modal" data-target="#<%="serv"+(x+1)%>" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -20px">Consultar</button>
-                          </div>
-                          <div class="col-md-2">
-                            <input value="1" type="number" min="1" class="form-control" id="<%="cant"+(x+1)%>" name="cant" style="margin-top: 130px; margin-left: -90px; width: 60px;"/>
-                          </div>
-                          <div class="col-md-4">
-                            <button class="btn btn-primary" style="height: 35px; font-family: Helvetica; font-size: 20px; margin-top: 130px; margin-left: -60px" onclick="AGREGARALCARRO('<%= x+1 %>')">Agregar al carrito</button>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </center>
@@ -266,30 +264,164 @@
                         bool = true;
                     }
                 }
-                if (bool === false){
-                   document.getElementById('fila' + (i+1)).style.display="none"; 
+                if (document.getElementById('fila' + (j+1)).value !== undefined){
+                    if (bool === false){
+                        for (var j = 0; j < <%= s.size()%>; j++){
+                            if (document.getElementById('fila' + (j+1)).value == (i+1)){
+                                document.getElementById('fila' + (j+1)).style.display="none"; 
+                            }
+                        }                   
+                    }else{
+                        for (var j = 0; j < <%= s.size()%>; j++){
+                            if (document.getElementById('fila' + (j+1)).value == (i+1)){
+                                document.getElementById('fila' + (j+1)).style.display="block";
+                            }
+                        }  
+                    }
                 }else{
-                   document.getElementById('fila' + (i+1)).style.display="block"; 
+                    if (bool === false){
+                        document.getElementById('fila' + (i+1)).style.display="none";                  
+                    }else{
+                        document.getElementById('fila' + (i+1)).style.display="block"; 
+                    }
                 }
+                
             }          
         }                
 </script>
 
 <script type="text/javascript">
-        function AGREGARALCARRO(num) {
-            var nickNOM = document.getElementById('titulo' + num).innerHTML; 
-            nickNOM = nickNOM.split(', ');
-            var nick = nickNOM[1];
-            var nom = nickNOM[0];
-            var preServ = document.getElementById('precio' + num).innerHTML;
-            var cantServ = document.getElementById('cant' + num).value;
-            //alert(nick + " " + nom + " " +preServ+ " " +cantServ);
-            $.post("AgregarAlCarrito", "nomServ="+ nom +"&nickServ=" + nick + "&preServ=" + preServ + "&cantServ=" + cantServ, function(state) {
-               
-            });
+        function BUSCAR() {
+            var text = document.getElementById('buscarText').value.toLowerCase();
+            //alert(text);
+            if (text !== ""){
+                for (var i = 0; i < <%= s.size()%>; i++) {
+                    //alert(i);
+                    var bool = false;
+                    var nombre = document.getElementById('titulo' + (i+1)).innerHTML;
+                    var categoria = document.getElementById('categoriaID' + (i+1)).innerHTML;
+                    var descripcion = document.getElementById('descipcion' + (i+1)).innerHTML;
+                    nombre = nombre.split(',');
+
+                    if (nombre[0].toLowerCase().indexOf(text) !== -1 || descripcion.toLowerCase().indexOf(text) !== -1){
+                        bool = true;
+                    }
+                    //alert(i);
+                    var arrayCat = categoria.split(', ');
+                    for (var j = 0; j < arrayCat.length ; j++) {
+                        if (arrayCat[j].toLowerCase().indexOf(text) !== -1){
+                            bool = true;
+                        }
+                    }
+                    if (bool === false){
+                       document.getElementById('fila' + (i+1)).style.display="none"; 
+                    }else{
+                       document.getElementById('fila' + (i+1)).style.display="block"; 
+                    }
+                }                        
+            }else{
+                for (var i = 0; i < <%= s.size()%>; i++) {
+                    document.getElementById('fila' + (i+1)).style.display="block";
+                }
+            }
             
+              
+        }       
+</script>
+
+<script type="text/javascript">
+        function ORDENARALFA() {
+            for(var i = 0; i < <%= s.size()%>; i++){
+                document.getElementById('fila' + (i+1)).style.display="block"; 
+            }
+            
+            var array = [];
+            var arrayOrd = [];
+            for (var k = 0; k < <%= s.size()%>; k++) {
+                var nom =  document.getElementById('titulo' + (k+1)).innerHTML;
+                nom = nom.split(',');
+                array.push(nom[0]);
+            }
+
+            while (array.length !== 0) {
+                var nom = array[0];
+                for (var i = 0; i < array.length; i++) {
+                    var nom2 = array[i];
+                    if (nom > nom2){
+                        nom = nom2;
+                    }
+                }
+                arrayOrd.push(nom);
+                array.splice(array.indexOf(nom),1);
+            }
+                       
+            ///////////////////////////////////////////////////////////////////
+            arrayCont = [];
+            for (var r = 0; r < <%= s.size()%>; r++){
+                for (var i = 0; i < <%= s.size()%>; i++){
+                    var nom3 =  document.getElementById('titulo' + (i+1)).innerHTML;
+                    nom3 = nom3.split(',');
+                    if (arrayOrd[r] == nom3[0]){
+                        arrayCont.push("contenido" + (i+1));
+                    } 
+                }               
+            }
+            
+            for (var j = 0; j < <%= s.size()%>; j++) {
+                document.getElementById('fila' + (j+1)).value = (arrayCont[j].split('contenido'))[1];
+                $("#" + arrayCont[j]).appendTo("#fila" + (j+1));
+            }
         }
-                
+        
+</script>        
+        
+<script type="text/javascript">
+        function ORDENARPRECIO() {
+            for(var i = 0; i < <%= s.size()%>; i++){
+                document.getElementById('fila' + (i+1)).style.display="block"; 
+            }
+            
+            var array = [];
+            var arrayOrd = [];
+            for (var k = 0; k < <%= s.size()%>; k++) {
+                var pre =  document.getElementById('precio' + (k+1)).innerHTML;
+                array.push(pre);
+            }
+
+            while (array.length !== 0) {
+                var pre = array[0];
+                for (var i = 0; i < array.length; i++) {
+                    var pre2 = array[i];
+                    if (Number(pre) > Number(pre2)){
+                        pre = pre2;
+                    }
+                }
+                arrayOrd.push(pre);
+                array.splice(array.indexOf(pre),1);
+            }
+                       
+            ///////////////////////////////////////////////////////////////////
+            arrayYaPaso = [];
+            arrayCont = [];
+            for (var r = 0; r < <%= s.size()%>; r++){
+                if (arrayYaPaso.indexOf(arrayOrd[r]) == "-1"){
+                    for (var i = 0; i < <%= s.size()%>; i++){
+                        var pre3 = document.getElementById('precio' + (i+1)).innerHTML;
+                        if (arrayOrd[r] == pre3){
+                            arrayCont.push("contenido" + (i+1));
+                            arrayYaPaso.push(arrayOrd[r]);
+                        }
+                    }
+                }                
+            }
+            
+            
+            for (var j = 0; j < <%= s.size()%>; j++) {
+                document.getElementById('fila' + (j+1)).value = (arrayCont[j].split('contenido'))[1];
+                $("#" + arrayCont[j]).appendTo("#fila" + (j+1));
+            }
+        }       
 </script>
 
   </body></html>
+

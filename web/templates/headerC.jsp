@@ -2,10 +2,13 @@
  
 <script>
     function pedirNickCliente(){
-        var s = document.getElementById("nickcli");
-        var x = prompt("Inserte su Nick de cliente", "eWatson");
-        s.value = x;
         document.forms["form3"].submit();
+    }
+</script>
+
+<script>
+    function CERRARSESION(){
+        document.forms["form4"].submit();
     }
 </script>
 
@@ -62,7 +65,7 @@
                                     <a href="verPerfil.jsp">Ver perfil</a>
                                 </li>
                                 <li>
-                                    <a href="index.jsp">Cerrar Sesion</a>
+                                    <a onclick="CERRARSESION()">Cerrar Sesion</a>
                                 </li>
                             </ul>
                         </li>
@@ -73,5 +76,7 @@
     </div>
 
 <form action="ControllerInfoReserva" method="post" id="form3">
-    <input type="hidden" name="cli" id="nickcli">
+</form>
+                                
+<form action="CerrarSesion" method="post" id="form4">
 </form>
