@@ -6,61 +6,58 @@
 package Control;
 
 import Modelo.ModelReserva;
+import com.google.gson.Gson;
 import help4travelling.DtInfoReserva;
 import help4travelling.DtReserva;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Antares
- */
 public class ControllerInfoReserva extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         ModelReserva modRes = ModelReserva.getInstance();
-                       
-        String cli = request.getParameter("cli");        
-        Integer[] idReservas = modRes.ObtenerReservas(cli);   
+        String cli = request.getParameter("cli");
+        String id2 = request.getParameter("resID");
+        String num2 = request.getParameter("num");
+        int id = 0;
+        if (id2 != null)
+            id = Integer.valueOf(id2);
+        int num = 0;
+        if (num2 != null)
+            num = Integer.valueOf(num2);
         
-        
-        
-        request.setAttribute("arrayReservas", idReservas);
-        
-        //pasamano negro
-        request.setAttribute("namecli", cli);
-        
-        if(request.getParameter("resID") != null){
-            String rid = request.getParameter("resID");
-            int resID = Integer.parseInt(rid);
-            
-            ArrayList<DtInfoReserva> lResID = modRes.ObtenerDatosReserva(resID);
-            request.setAttribute("SerDRes", lResID);
-            
-            DtReserva datosRes = modRes.devolverReserva(resID);
-            request.setAttribute("InfoRes", datosRes);
-            
-            request.getRequestDispatcher("consultarReservas_1.jsp").forward(request, response);
-        }
-        
-        request.getRequestDispatcher("consultarReservas.jsp").forward(request, response);
-        
+        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        //System.out.println("AJAX:  " + ajax + "--------------------");
+        if (ajax) {
+            if (id != 0 && num == 1){
+                //System.out.println("Servlet1");
+                
+                List<DtInfoReserva> lResID = modRes.ObtenerDatosReserva(id);
+                String json = new Gson().toJson(lResID);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);   
+            }else if (id != 0 && num == 2){
+                //System.out.println("Servlet2");
+                
+                DtReserva datosRes = modRes.devolverReserva(id);
+                String json = new Gson().toJson(datosRes);
+                response.setContentType("application/json");
+                response.setCharacterEncoding("UTF-8");
+                response.getWriter().write(json);
+            }
+        } else {
+            Integer[] idReservas = modRes.ObtenerReservas(cli);
+            request.setAttribute("arrayReservas", idReservas);
+            request.setAttribute("namecli", cli);
+            request.getRequestDispatcher("consultarReservas.jsp").forward(request, response);
+        }       
         
     }
 

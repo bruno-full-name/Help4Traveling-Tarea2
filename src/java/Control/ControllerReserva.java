@@ -42,9 +42,13 @@ public class ControllerReserva extends HttpServlet {
             {
                precio+=infodeReserva.get(i).getPrecioArticulo() * infodeReserva.get(i).GetCantidad();
             }
+            
+            String nickname = request.getSession().getAttribute("usuario_logueado").toString();
+             
+            
             ModelReserva modRes = ModelReserva.getInstance();
-            modRes.agregarRes(Estado.Registrada, fechaActual, infodeReserva, "BruceS", precio);
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            modRes.agregarRes(Estado.Registrada, fechaActual, infodeReserva, nickname, precio);
+            request.getRequestDispatcher("inicioCliente.jsp").forward(request, response);
             
         } finally {
             

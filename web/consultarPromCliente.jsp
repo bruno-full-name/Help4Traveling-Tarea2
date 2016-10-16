@@ -27,17 +27,6 @@
         </div>
       </div>
       <hr style="color: black; background-color: black;">
-      <div class="section" style="padding-top: 0px; padding-bottom: 0px">
-        <div class="container-fluid">
-          <div class="col-md-3">
-            <input type="text" class="form-control" id="barraDeBusqueda" placeholder="Servicio o promocion">
-          </div>
-          <div class="col-md-1">
-            <button name="buscar" id="buscar" type="submit" class="btn button">Buscar</button>
-          </div>
-        </div>
-      </div>
-      <hr style="color: black; background-color: black;">
       <div class="section" style="margin-top: -55">
         <div class="container-fluid">
           <div class="row">
@@ -89,14 +78,12 @@
                 <h4 style="font-family: Helvetica; font-size: 16; margin-top: 40px">Cantidad:</h4>
               </div>
                     <div class="col-md-6">
-                        <form id="from_id2" action="AgregarAlCarrito" method="post" class="from_class">
-                            <input type="text" class="form-control" id="nickProm" name="nomProm" readonly/>
-                            <input type="text" class="form-control" id="nomProm" name="nickProm" readonly/>
-                            <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
-                            <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
-                            <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="margin-top: 20px"/>
-                            <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" id="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
-                        </form>
+                    <input type="text" class="form-control" id="nickProm" name="nomProm" readonly/>
+                    <input type="text" class="form-control" id="nomProm" name="nickProm" readonly/>
+                    <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
+                    <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
+                    <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="margin-top: 20px"/>
+                    <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" id="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
                     </div>
             </div>
             <div class="col-md-6">
@@ -138,8 +125,8 @@
         var value = $(this).find('td:first').html();
         var value2 = $(this).find("td").eq(1).html();
         if (value !== undefined){
-            document.getElementById('nickProm').value = value2;
-            document.getElementById('nomProm').value = value;
+            document.getElementById('nickProm').value = value;
+            document.getElementById('nomProm').value = value2;
             
             $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value, function(responseText) {
                 document.getElementById('descProm').value = responseText;
@@ -181,7 +168,16 @@
            var nick = document.getElementById('nickProm').value;
            var nom = document.getElementById('nomProm').value;
            if (nick != "" && nom != ""){
-               document.getElementById("from_id2").submit();
+                //alert("nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').value +"&cant=" + document.getElementById('cant').value);
+                $.get("AgregarAlCarrito", "nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').value +"&cant=" + document.getElementById('cant').value, function(responseText) {
+                    alert("Promocion agregada correctamente");
+                    document.getElementById('nickProm').value = "";
+                    document.getElementById('nomProm').value = "";
+                    document.getElementById('descProm').value = "";
+                    document.getElementById('preProm').value = "";
+                    document.getElementById('cant').value = "1";
+                    $("#tbody").children().remove();
+                });
            }
         }
                 

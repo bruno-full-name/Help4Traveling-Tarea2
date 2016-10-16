@@ -3,7 +3,7 @@
 <script>
     function pedirNickCliente(){
         var s = document.getElementById("nickcli");
-        var x = prompt("Inserte su Nick de cliente", "");
+        var x = prompt("Inserte su Nick de cliente", "eWatson");
         s.value = x;
         document.forms["form3"].submit();
     }
@@ -42,10 +42,18 @@
                 <div class="container-fluid">
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="consultarReservaActual.jsp" class="dkd"><i class="fa fa-2x fa-cart-plus fa-fw"></i></a>
+                            <a href="/ControllerReservav2" class="dkd"><i class="fa fa-2x fa-cart-plus fa-fw"></i></a>
                         </li>
                         <li>
-                            <a href="verPerfil.jsp" class="dkd" style="position: relative;  bottom: -5;">John Connor </a>
+                              <form action="AutenticarCliente" method="post">
+                                <a href="verPerfil.jsp" class="dkd" style="position: relative;  bottom: -5;"> 
+                                    </br>
+                                    <% 
+                                        String nick = request.getSession().getAttribute("usuario_logueado").toString();
+                                        out.println(nick);
+                                    %> 
+                                </a>
+                                </form>
                         </li>
                         <li>
                             <a class=" btn dropdown-toggle dkd" data-toggle="dropdown"><i class="fa fa-2x fa-fw fa-user t-plus"></i><span class="fa fa-caret-down"></span></a>

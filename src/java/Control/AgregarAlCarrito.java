@@ -69,18 +69,13 @@ public class AgregarAlCarrito extends HttpServlet {
                 carrito2.add(carrito);
                 session.setAttribute("ListaInfoRes", carrito2);
             }else{
-                /*System.out.println(listInfoRes.get(0).GetNombreArticulo());
-                System.out.println(listInfoRes.size());*/
                 listInfoRes.add(carrito);
-                /*System.out.println(listInfoRes.get(listInfoRes.size()-1).GetNombreArticulo());
-                System.out.println(listInfoRes.size());*/
                 session.setAttribute("ListaInfoRes", listInfoRes);
             }
-            request.getRequestDispatcher("consultarReservaActual.jsp").forward(request, response);
+
         }else if (nickServ != null && nomServ != null){
             DtInfoReserva carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
-            //System.out.println(carrito.GetNombreArticulo() +" "+ carrito.getNickProveedor() +" "+ carrito.GetCantidad() +" "+ carrito.getPrecioArticulo());
-            
+
             HttpSession session = request.getSession();
             ArrayList<DtInfoReserva> listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
             if (listInfoRes == null){
@@ -88,11 +83,7 @@ public class AgregarAlCarrito extends HttpServlet {
                 carrito2.add(carrito);
                 session.setAttribute("ListaInfoRes", carrito2);
             }else{
-                /*System.out.println(listInfoRes.get(0).GetNombreArticulo());
-                System.out.println(listInfoRes.size());*/
                 listInfoRes.add(carrito);
-                /*System.out.println(listInfoRes.get(1).GetNombreArticulo());
-                System.out.println(listInfoRes.size());*/
                 session.setAttribute("ListaInfoRes", listInfoRes);
                 
             }

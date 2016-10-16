@@ -57,6 +57,10 @@ public class ModelArticulo {
         return (List)ICCategoria.listarServicios(nameCat);
     }
     
+    public DtServicio ObtenerDatosServicio(String nameServ, String nameProv){
+        return ICArticulo.datosServicio(nameServ, nameProv);
+    }
+    
 }
     
     

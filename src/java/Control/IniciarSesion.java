@@ -1,51 +1,59 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Control;
 
-import Modelo.ModelArticulo;
-import com.google.gson.Gson;
-import help4travelling.DtPromocion;
+import Modelo.EstadoSesion;
+import Modelo.ModelUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class DevolverPromocion extends HttpServlet {
+/**
+ *
+ * @author Pedro Moretto
+ */
+
+public class IniciarSesion extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+        HttpSession objSesion = null;
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String promo = request.getParameter("descProm");
-        String promo2 = request.getParameter("preProm");
-        DtPromocion p = ModelArticulo.getInstance().datosPromocion(request.getParameter("nomProm"), request.getParameter("nickProm"));
-        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
+        String nickname = request.getParameter("idNick");
+        String password = request.getParameter("idPass");
+        
+        EstadoSesion nuevoEstado;
+        RequestDispatcher dispatcher = null;
+        
         try {
-            if (ajax) {
-                if (promo == null){
-                    String descuento = String.valueOf(p.GetDescuento());
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(descuento);
-
-                }else if (promo2 == null){
-                    String precio = String.valueOf(p.GetPrecio());
-                    response.setContentType("text/plain");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(precio);
-                }else {
-                    List<String> servicos = p.GetServicios();
-                    String json = new Gson().toJson(servicos);
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(json);   
-                }
+            boolean usr = ModelUsuario.getInstance().autenticarCliente(nickname, password);    
+            out.print(usr);
+            if(!usr){
+                nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
+                dispatcher = request.getRequestDispatcher("errorVisitante.jsp");
+                dispatcher.forward(request, response);
             } else {
-                System.out.println("????????");
-                // Handle regular (JSP) response.
+                dispatcher = request.getRequestDispatcher("inicioCliente.jsp");
+                nuevoEstado = EstadoSesion.LOGIN_CORRECTO;
+                request.getSession().setAttribute("usuario_logueado", nickname);
+                dispatcher.forward(request, response);
             }
+        } catch(Exception ex){
+        nuevoEstado = EstadoSesion.LOGIN_INCORRECTO;
+        }
+        objSesion.setAttribute("estado_sesion", nuevoEstado);
+
             
         } finally {
-            out.close();
+            
         }
     }
 

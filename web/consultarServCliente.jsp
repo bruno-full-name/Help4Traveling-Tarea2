@@ -84,7 +84,7 @@
             <%   for(int x = 0; x < s.size(); x++){   %>
             
                 <center>
-                  <div id="<%="fila"+(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
+                  <div id="<%="fila"+(x+1)%>" value="<%=(x+1)%>" class="row" style="height: 250px; margin-top: 20px; background-color: #f9f9f9; max-height: 250px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
                     <div id="<%="contenido"+(x+1)%>" class="row" style="margin-right: 0px; margin-left: 0px">
                         <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
                           <div class="col-md-9">
@@ -268,11 +268,28 @@
                         bool = true;
                     }
                 }
-                if (bool === false){
-                   document.getElementById('fila' + (i+1)).style.display="none"; 
+                if (document.getElementById('fila' + (j+1)).value !== undefined){
+                    if (bool === false){
+                        for (var j = 0; j < <%= s.size()%>; j++){
+                            if (document.getElementById('fila' + (j+1)).value == (i+1)){
+                                document.getElementById('fila' + (j+1)).style.display="none"; 
+                            }
+                        }                   
+                    }else{
+                        for (var j = 0; j < <%= s.size()%>; j++){
+                            if (document.getElementById('fila' + (j+1)).value == (i+1)){
+                                document.getElementById('fila' + (j+1)).style.display="block";
+                            }
+                        }  
+                    }
                 }else{
-                   document.getElementById('fila' + (i+1)).style.display="block"; 
+                    if (bool === false){
+                        document.getElementById('fila' + (i+1)).style.display="none";                  
+                    }else{
+                        document.getElementById('fila' + (i+1)).style.display="block"; 
+                    }
                 }
+                
             }          
         }                
 </script>
@@ -326,7 +343,7 @@
             var cantServ = document.getElementById('cant' + num).value;
             //alert(nick + " " + nom + " " +preServ+ " " +cantServ);
             $.post("AgregarAlCarrito", "nomServ="+ nom +"&nickServ=" + nick + "&preServ=" + preServ + "&cantServ=" + cantServ, function(state) {
-               
+               alert("Servicio agregado correctamente");
             });
             
         }       
@@ -334,6 +351,10 @@
 
 <script type="text/javascript">
         function ORDENARALFA() {
+            for(var i = 0; i < <%= s.size()%>; i++){
+                document.getElementById('fila' + (i+1)).style.display="block"; 
+            }
+            
             var array = [];
             var arrayOrd = [];
             for (var k = 0; k < <%= s.size()%>; k++) {
@@ -367,6 +388,7 @@
             }
             
             for (var j = 0; j < <%= s.size()%>; j++) {
+                document.getElementById('fila' + (j+1)).value = (arrayCont[j].split('contenido'))[1];
                 $("#" + arrayCont[j]).appendTo("#fila" + (j+1));
             }
         }
@@ -375,6 +397,10 @@
         
 <script type="text/javascript">
         function ORDENARPRECIO() {
+            for(var i = 0; i < <%= s.size()%>; i++){
+                document.getElementById('fila' + (i+1)).style.display="block"; 
+            }
+            
             var array = [];
             var arrayOrd = [];
             for (var k = 0; k < <%= s.size()%>; k++) {
@@ -411,6 +437,7 @@
             
             
             for (var j = 0; j < <%= s.size()%>; j++) {
+                document.getElementById('fila' + (j+1)).value = (arrayCont[j].split('contenido'))[1];
                 $("#" + arrayCont[j]).appendTo("#fila" + (j+1));
             }
         }       
