@@ -12,13 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerUsuario.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarPromCliente.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerReserva.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarServCliente.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/templates/header.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Modelo/ModelReserva.java</file>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerCategoria.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Modelo/ModelUsuario.java</file>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/templates/headerC.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarProvVisitante.jsp</file>
         </group>
     </open-files>
 </project-private>

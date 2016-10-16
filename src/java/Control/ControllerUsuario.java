@@ -50,20 +50,22 @@ public class ControllerUsuario extends HttpServlet {
                     
         if(modUsu.VerificarNickCliente(nick)){
             request.setAttribute("error_registro","nick");
-            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
         if(modUsu.VerificarEmailCliente(mail)){
             request.setAttribute("error_registro","mail");
-            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
 
         if(!(pass.equals(pass2))){
             request.setAttribute("error_registro", "pass");
-            request.getRequestDispatcher("registrarCliente.jsp").forward(request, response);
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
         
         DtCliente dtcli = new DtCliente(nick, name, lastname, mail, new DtFecha(fnac), null, null, pass);
+        System.out.println(nick +"-"+ name +"-"+ lastname +"-"+ mail +"-"+ pass);
+        System.out.println(fnac);
         modUsu.agregarCliente(dtcli);
 
         request.setAttribute("mensaje", "Se agrego el cliente");

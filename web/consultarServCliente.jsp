@@ -398,18 +398,13 @@
             arrayYaPaso = [];
             arrayCont = [];
             for (var r = 0; r < <%= s.size()%>; r++){
-                var a = 0;
                 if (arrayYaPaso.indexOf(arrayOrd[r]) == "-1"){
                     for (var i = 0; i < <%= s.size()%>; i++){
                         var pre3 = document.getElementById('precio' + (i+1)).innerHTML;
-                        if (arrayOrd[r] == pre3 && a == 0 ){
-                            a = a+1;
+                        if (arrayOrd[r] == pre3){
                             arrayCont.push("contenido" + (i+1));
                             arrayYaPaso.push(arrayOrd[r]);
-                        }else if (arrayOrd[r] == pre3 && a == 1 ){
-                            arrayCont.push("contenido" + (i+1));
-                            arrayYaPaso.push(arrayOrd[r]);
-                        } 
+                        }
                     }
                 }                
             }
