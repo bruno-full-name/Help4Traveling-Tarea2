@@ -25,18 +25,18 @@
     <div class="divPrincipal">
 <!---->
 
-    <h1>El Cliente fue Registrado con Exito</h1>
+    <centrar><h1>El Cliente fue Registrado con Exito</h1>
 
         <p>Seleccione una imagen si asi lo desea</p>
 
         <form action="ControllerUserImage" id="form2" method="post" enctype="multipart/form-data">
-            <input class="img-circle" type="file" name="imagentest"/>
+            <input class="img-responsive" type="file" name="imagentest"/>
             <input type="hidden" name="namecli" value="<%= request.getParameter("nick") %>"/>
             <input class="btn-toolbar" type="submit" name="imagesubmit" value="Aceptar"/>
         </form>
 
         <a href="index.jsp">Volver al inicio</a>    
-
+    </centrar>
 <!---->
   </div>
 <!---->
