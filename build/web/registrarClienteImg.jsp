@@ -32,7 +32,7 @@
         <form action="ControllerUserImage" id="form2" method="post" enctype="multipart/form-data">
             <input class="img-circle" type="file" name="imagentest"/>
             <input type="hidden" name="namecli" value="<%= request.getParameter("nick") %>"/>
-            <input class="btn-toolbar" type="submit" name="imagesubmit" value="testimg"/>
+            <input class="btn-toolbar" type="submit" name="imagesubmit" value="Aceptar"/>
         </form>
 
         <a href="index.jsp">Volver al inicio</a>    

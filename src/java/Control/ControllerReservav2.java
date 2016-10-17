@@ -38,7 +38,8 @@ public class ControllerReservav2 extends HttpServlet {
         request.setAttribute("ModeloCarrito", modRes);
         request.setAttribute("ModeloServicio", modArt);
         
-        if(request.getSession().getAttribute("ListaInfoRes") != null){
+        //System.out.println(request.getSession().getAttribute("ListaInfoRes"));
+        if(request.getSession().getAttribute("ListaInfoRes") != null && request.getSession().getAttribute("ListaInfoRes") != ""){
             request.getRequestDispatcher("verCarrito.jsp").forward(request, response);
         }else{
             request.getRequestDispatcher("inicioCliente.jsp").forward(request, response);

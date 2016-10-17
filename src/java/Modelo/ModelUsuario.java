@@ -71,4 +71,8 @@ public class ModelUsuario {
     public byte[] getImagen(String nickP){
         return ManejadorSQL.GetInstance().selectImgUsuario(nickP);
     }
+    
+    public DtCliente devolverCliente(String nick){
+        return ICUsuario.datosCliente(nick);
+    }
 }

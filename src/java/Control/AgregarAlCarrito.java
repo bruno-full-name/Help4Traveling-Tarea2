@@ -23,14 +23,6 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "AgregarAlCarrito", urlPatterns = {"/AgregarAlCarrito"})
 public class AgregarAlCarrito extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
@@ -58,20 +50,19 @@ public class AgregarAlCarrito extends HttpServlet {
         if (cantServ != null)
             cantServ2 = Integer.valueOf(cantServ);
         
-         ArrayList<DtInfoReserva> listInfoRes= null;
-         DtInfoReserva carrito = null;
-         HttpSession session= null;
+        ArrayList<DtInfoReserva> listInfoRes= null;
+        DtInfoReserva carrito = null;
+        HttpSession session= null;
+  
         if ( nickProm != null &&  nomProm != null){
             carrito = new DtInfoReserva(null, null, cant2, nomProm, nickProm, precio2); 
             session = request.getSession();
-            listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
         }else if (nickServ != null && nomServ != null){
             carrito = new DtInfoReserva(null, null, cantServ2, nomServ, nickServ, precioServ2);
             session = request.getSession();
-            listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
         }
-        
-        
+        listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
+        System.out.println(listInfoRes);
         if (listInfoRes == null){
             ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
             carrito2.add(carrito);
@@ -79,13 +70,9 @@ public class AgregarAlCarrito extends HttpServlet {
         }else{
             boolean ent = false;
             for (int i=0; i < listInfoRes.size(); i++){
-                //System.out.println("--------------------------------------------------------------------");
-                //System.out.println(listInfoRes.get(i).GetNombreArticulo() +" "+ carrito.GetNombreArticulo());
-                //System.out.println(listInfoRes.get(i).getNickProveedor() +" "+ carrito.getNickProveedor());
                 if(listInfoRes.get(i).GetNombreArticulo().equals(carrito.GetNombreArticulo())  && listInfoRes.get(i).getNickProveedor().equals(carrito.getNickProveedor())){
                     listInfoRes.get(i).setCantidad(listInfoRes.get(i).GetCantidad() + carrito.GetCantidad());
                     ent = true;
-                    //System.out.println("true");
                 }
             }
             if (ent == false){

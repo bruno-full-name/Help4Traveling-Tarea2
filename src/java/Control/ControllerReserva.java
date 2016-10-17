@@ -37,7 +37,7 @@ public class ControllerReserva extends HttpServlet {
             ArrayList<DtInfoReserva> infodeReserva = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
             session.setAttribute("ListaInfoRes", null);
             int precio=0;
-            System.out.println(infodeReserva.size());
+            //System.out.println(infodeReserva.size());
             for(int i=0; i< infodeReserva.size(); i++)
             {
                precio+=infodeReserva.get(i).getPrecioArticulo() * infodeReserva.get(i).GetCantidad();

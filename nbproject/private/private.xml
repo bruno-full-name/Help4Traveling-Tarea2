@@ -12,12 +12,22 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarServVisitante.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarPromCliente.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerReserva.java</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarPromVisitante.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarProvVisitante.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarProvCliente.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/templates/headerC.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/consultarServCliente.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/registrarClienteImg.jsp</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/verCarrito.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/CerrarSesion.java</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerReservav2.java</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/verPerfil.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerUserImage.java</file>
             <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/AgregarAlCarrito.java</file>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerInfoReserva.java</file>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/templates/footer.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Modelo/ModelUsuario.java</file>
         </group>
     </open-files>
 </project-private>

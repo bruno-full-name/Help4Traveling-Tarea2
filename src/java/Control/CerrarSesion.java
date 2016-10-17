@@ -14,8 +14,8 @@ public class CerrarSesion extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        request.getSession().setAttribute("usuario_logueado","");
-        request.getSession().setAttribute("ListaInfoRes","");
+        request.getSession().removeAttribute("usuario_logueado");
+        request.getSession().removeAttribute("ListaInfoRes");
         request.getRequestDispatcher("index.jsp").forward(request, response);
         try {
             

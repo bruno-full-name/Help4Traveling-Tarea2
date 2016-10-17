@@ -49,8 +49,11 @@
             ModelReserva modRes = ((ModelReserva)request.getAttribute("ModeloCarrito"));
             ModelArticulo modArt = ((ModelArticulo)request.getAttribute("ModeloServicio"));
             //ArrayList<DtInfoReserva> lserv = modRes.ObtenerDatosReserva(2);
-            
-            ArrayList<DtInfoReserva> lserv = (ArrayList<DtInfoReserva>)session.getAttribute("ListaInfoRes");
+            ArrayList<DtInfoReserva> lserv =null;
+            try{
+                lserv = (ArrayList<DtInfoReserva>)session.getAttribute("ListaInfoRes");
+            }catch(Exception ex){
+            }
             float total = 0;
         %>
         
@@ -132,4 +135,11 @@
     </div>
   
 <jsp:include page="templates/footer.jsp"/>
+
+<script type="text/javascript">
+    function ERROR(){
+        alert("El carro esta vacio");
+    }
+</script>
+
 </body></html>
