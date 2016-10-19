@@ -39,8 +39,7 @@
                 <a href="#"><i class="fa fa-3x fa-fw fa-instagram text-inverse"></i></a>
                 <a href="#"><i class="fa fa-3x fa-fw fa-twitter text-inverse"></i></a>
                 <a href="#"><i class="fa fa-3x fa-fw fa-facebook text-inverse"></i></a>
-                <a href="https://github.com/Antares101/ProgAppWeb2016"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
-                <a href="registrarClienteImg.jsp"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
+                <a href="https://github.com/bruno-full-name/Help4Traveling-Tarea2.git"><i class="fa fa-3x fa-fw fa-github text-inverse"></i></a>
               </div>
             </div>
           </div>
