@@ -62,9 +62,7 @@
               <div class="row" style="margin-top: 20px; border-top-style: solid; border-width: 4px; border-color: #01529e">
                 <center>
                   <h3 style="height: 35px; font-family: Helvetica; color: #01529e; margin-top: 10px" contenteditable="true">
-                  
                     <b>SELECCIONAR RESERVA</b>
-                  
                 </h3>
                 </center>
               </div>
@@ -154,12 +152,15 @@
 </script>
 <script>
         function cancelar(){
-            if(document.getElementById("cancel").value != ""){
-               $.get("ControlCancelarReserva", "id="+ document.getElementById("cancel").value , function(resonse) {
-                    document.getElementById("estadoAct").innerHTML = "Cancelada";
-                    alert("Reserva Cancelada");
-                }); 
-            }            
+            if (document.getElementById("estadoAct").innerHTML === "Registrada"){
+                if(document.getElementById("cancel").value != ""){
+                 $.get("ControlCancelarReserva", "id="+ document.getElementById("cancel").value , function(resonse) {
+                     document.getElementById("estadoAct").innerHTML = "Cancelada";
+                     alert("Reserva Cancelada");
+                 }); 
+                }   
+            }
+                      
         }
 </script>
 

@@ -32,6 +32,10 @@
         <servlet-name>CerrarSesion</servlet-name>
         <servlet-class>Control.CerrarSesion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>BorrarCarrito</servlet-name>
+        <servlet-class>Control.BorrarCarrito</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ControlUserImage</servlet-name>
         <url-pattern>/ControllerUserImage</url-pattern>
@@ -67,6 +71,10 @@
     <servlet-mapping>
         <servlet-name>CerrarSesion</servlet-name>
         <url-pattern>/CerrarSesion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BorrarCarrito</servlet-name>
+        <url-pattern>/BorrarCarrito</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

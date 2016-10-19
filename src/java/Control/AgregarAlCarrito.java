@@ -69,15 +69,21 @@ public class AgregarAlCarrito extends HttpServlet {
             session.setAttribute("ListaInfoRes", carrito2);
         }else{
             boolean ent = false;
+            int pos = 0;
+            DtInfoReserva carrito3 = null;
             for (int i=0; i < listInfoRes.size(); i++){
                 if(listInfoRes.get(i).GetNombreArticulo().equals(carrito.GetNombreArticulo())  && listInfoRes.get(i).getNickProveedor().equals(carrito.getNickProveedor())){
-                    listInfoRes.get(i).setCantidad(listInfoRes.get(i).GetCantidad() + carrito.GetCantidad());
+                    carrito3 = new DtInfoReserva(null, null, carrito.GetCantidad() + listInfoRes.get(i).GetCantidad(), listInfoRes.get(i).GetNombreArticulo(), listInfoRes.get(i).getNickProveedor(), listInfoRes.get(i).getPrecioArticulo());
+                    pos = i;
                     ent = true;
                 }
             }
             if (ent == false){
                 listInfoRes.add(carrito);
-            }            
+            }else{
+                listInfoRes.remove(pos);
+                listInfoRes.add(carrito3);
+            }         
             session.setAttribute("ListaInfoRes", listInfoRes);
         }
         try {

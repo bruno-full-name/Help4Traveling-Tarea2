@@ -1,34 +1,21 @@
 package Control;
 
-import Modelo.ModelArticulo;
-import com.google.gson.Gson;
-import help4travelling.DtServicio;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "DevolverServicio", urlPatterns = {"/DevolverServicio"})
-public class DevolverServicio extends HttpServlet {
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+public class BorrarCarrito extends HttpServlet {
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String nickP = request.getParameter("nickServ");
-        String nombreA = request.getParameter("nomServ");
-        boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         try {
-            if (ajax) {
-                if (nickP == null){
-                    DtServicio s = ModelArticulo.getInstance().ObtenerDatosServicio(nickP, nombreA);
-                    String json = new Gson().toJson(s);
-                    response.setContentType("application/json");
-                    response.setCharacterEncoding("UTF-8");
-                    response.getWriter().write(json);
-                }
-            }
+            request.getSession().removeAttribute("ListaInfoRes");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         } finally {
             out.close();
         }

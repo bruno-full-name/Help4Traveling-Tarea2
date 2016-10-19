@@ -19,100 +19,118 @@
     <!--CUERPO-->
     <div class="divPrincipal">
     <!---->
-       <div class="section" style="padding-bottom: 0px">
-        <div class="container-fluid">
-          <div class="col-md-12">
-            <h1 class="text-center" style="color: #313131; font-family: Helvetica">PROMOCIONES</h1>
+         <div class="section">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12" style="border-bottom-style: solid; border-color: rgb(1, 82, 158); border-width: 9px">
+            <h1 class="text-center" style="color: #313131; font-family: Helvetica; ">PROMOCIONES</h1>
+          </div>
+        </div>
+        <div class="row">
+          <!-- INICIO TREEVIEW CON CATEGORIAS -->
+          <div class="col-md-3" style="background-color: white; min-height: 550px; max-height: 550px; overflow-y: auto">
+            <div class="col-md-12">
+              <div class="row" style="margin-top: 20px; border-top-style: solid; border-width: 4px; border-color: #01529e">
+                  <center>
+                <h3 style="height: 35px; font-family: Helvetica; color: #01529e; margin-top: 10px">
+                    <b>SELECCIONAR</b>
+                </h3>
+                  </center>
+              </div>
+              <!-- FILA A TENER POR CADA PROMOCION -->
+              <div class="row" style="height: 35px">
+                <table id="tabla" class="table">
+                  <thead style="background-color: #01529e; color: white; font-family: Helvetica; font-size: 14px">
+                    <tr>
+                      <th style="width: 30px">NICKNAME PROV.</th>
+                      <th style="width: 30px">NOMBRE</th>
+                    </tr>
+                  </thead>
+                  <tbody style="color: black; font-family: Helvetica; font-size: 13">
+                    <%! ArrayList<DtPromocion> prom = ModelArticulo.getInstance().listarPromociones(); %>
+                    <% for(int i=0; i<prom.size(); i++){ %>
+                    <tr>
+                      <td style="border-bottom-style: solid; border-width: 1px; border-color: #01529e"><%= prom.get(i).getNickProv() %></td>
+                      <td style="border-bottom-style: solid; border-width: 1px; border-color: #01529e"><%= prom.get(i).GetNombre() %></td>
+                      <% } %>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- FIN FILA A TENER POR CADA PROMOCION -->
+            </div>
+          </div>
+          <!-- FIN TREEVIEW && INICIO LA OTRA SHIT -->
+          <!-- SECCION CON SCROLL DE SERVICIOS -->
+          <div class="col-md-9" style="height: 550px; max-height: 550px; overflow-y: auto; background-color: #E6E6E6">
+            <!-- COMIENZO FILA A TENER POR CADA SERVICIO -->
+            <center>
+              <div class="row" style="height: 510px; margin-top: 20px; background-color: #f9f9f9; max-height: 550px; width: 100%; border-color: #01529e; border-width: 9px; border-bottom-style: solid">
+                <div class="row" style="height: 50px; background-color: white; width: 100%; border-top-style: solid; border-color: #01529e">
+                  <div class="col-md-7">
+                    <h2 id="nomProm" style="margin-top: 9px; font-family: Helvetica; color: #01529e; font-size: 27px; width: 100%; text-align: left"></h2>
+                  </div>
+                  <div class="col-md-5">
+                    <div class="col-md-1">
+                      <h2 style="margin-top: 6px; font-family: Helvetica; color: #359151; margin-left: 0px; font-size: 30px">
+                        <b>$</b>
+                      </h2>
+                    </div>
+                    <div class="col-md-4">
+                      <h2 id="preProm" style="margin-top: 9px; font-family: Helvetica; color: #359151; margin-left: -20px; text-align: left; font-size: 25px"></h2>
+                    </div>
+                    <div class="col-md-2">
+                        <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="width: 90px; margin-top: 7px"/>
+                    </div>                      
+                    <div class="col-md-5">
+                        <button class="btn btn-primary" style="height: 45px; font-family: Helvetica; font-size: 20px; margin-top: px; margin-left: 30px" onclick="AGREGARALCARRO()">Agregar al carrito</button>
+                    </div>
+                  </div>
+                  <div class="row" style="height: 60px; width: 100%; margin-top: 60px">
+                    <div class="col-md-12" style="height: 60px; min-height: 60px; margin-left: 0px">
+                      <div class="col-md-2">
+                        <h3 style="font-family: Helvetica; text-align: left">
+                          <b>Proveedor:</b>
+                        </h3>
+                      </div>
+                      <div class="col-md-5">
+                        <h3 id="nickProm" style="font-family: Helvetica; text-align: left; margin-left: -10px"></h3>
+                      </div>
+                      <div class="col-md-2">
+                        <h3 style="font-family: Helvetica; text-align: left">
+                          <b>Descuento:</b>
+                        </h3>
+                      </div>
+                      <div class="col-md-3">
+                        <h3 id="descProm" style="font-family: Helvetica; text-align: left; margin-left: -10px"></h3>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- COMIENZO FILA CON TABLA DE SERVICIOS DE LA PROMOCION -->
+                  <div class="row" style="width: 97%; margin-top: 5px; height: 360px; background-color: white; border-left-style: solid; border-width: 6px; border-color: #359151">
+                    <div class="row" style="width: 100%; height: 40px; min-height: 40px">
+                      <h2 style="margin-top: 7px; font-family: Helvetica; color: #359151; margin-left: 10px; font-size: 25px; text-align: left">Servicios asociados</h2>
+                    </div>
+                    <div class="row" style="width: 97%">
+                      <table id="tablaServ" class="table" style="background-color: #979797; margin-top: 5px; ">
+                        <thead style="background-color: #D9E9E9; color: #333333; font-family: Helvetica; font-size: 14px; border-bottom-style: solid; border-width: 4px; border-color: #359151">
+                          <tr>
+                            <th style="width: 300">NOMBRE PROVEEDOR</th>
+                            <th style="width: 300">NOMBRE SERVICIO</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tbody" style="background-color: white; color: #333333"></tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- FIN FILA CON TABLA DE SERVICIOS DE LA PROMOCION -->
+                </div>
+              </div>
+            </center>
           </div>
         </div>
       </div>
-      <hr style="color: black; background-color: black;">
-      <div class="section" style="margin-top: -55">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-3">
-              <center>
-                <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Seleccionar</h2>
-                <hr style="color: black; background-color: black">
-                <div class="section">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-12">   
-                          
-                        <table id="tabla" class="table" style="background-color: #979797; margin-top: -30; margin-left: 7">
-                          <thead style="background-color: #545454; color: white; font-family: Helvetica; font-size: 14">
-                            <tr>
-                              <th style="width: 300">NICKNAME PROV.</th>
-                              <th style="width: 300">NOMBRE</th>
-                            </tr>
-                          </thead>
-                          <tbody style="color: white; font-family: Helvetica; font-size: 13">
-                                 <%! ArrayList<DtPromocion> prom = ModelArticulo.getInstance().listarPromociones(); %>
-                
-                                <% for(int i=0; i<prom.size(); i++){ %>
-                                <tr> 
-                                    <td><%= prom.get(i).getNickProv() %></td>
-                                    <td><%= prom.get(i).GetNombre() %></td>
-                                    <% } %>
-                                </tr>
-                          </tbody>
-                        </table>
-                         
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </center>
-            </div>
-            <div class="col-md-3">
-              <center>
-                <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Información</h2>
-                
-              </center>
-              <hr style="color: black; background-color: black">
-              <div class="col-md-6">
-                <h4 style="font-family: Helvetica; font-size: 16">Nombre:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Proveedor:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Descuento:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16">Precio Total:</h4>
-                <h4 style="font-family: Helvetica; font-size: 16; margin-top: 40px">Cantidad:</h4>
-              </div>
-                    <div class="col-md-6">
-                    <input type="text" class="form-control" id="nickProm" name="nomProm" readonly/>
-                    <input type="text" class="form-control" id="nomProm" name="nickProm" readonly/>
-                    <input type="text" class="form-control" id="descProm" name="descProm" readonly/>
-                    <input type="text" class="form-control" id="preProm" name="preProm" readonly/>
-                    <input value="1" type="number" min="1" class="form-control" id="cant" name="cant" style="margin-top: 20px"/>
-                    <button type="button" class="btn button col-md-12" style="margin-top: 10px" name="prom" id="prom" value="prom" onclick="AGREGARALCARRO()">Agregar al Carrito</button>
-                    </div>
-            </div>
-            <div class="col-md-6">
-              <center>
-                <h2 style="font-family: Helvetica; color: #01529e; font-style: italic">Servicios asociados</h2>
-                <hr style="color: black; background-color: black">
-                <div class="section">
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <table id="tablaServ" class="table" style="background-color: #979797; margin-top: -30; margin-left: 7">
-                          <thead style="background-color: #545454; color: white; font-family: Helvetica; font-size: 14">
-                            <tr>
-                              <th style="width: 300">NOMBRE PROVEEDOR</th>
-                              <th style="width: 300">NOMBRE SERVICIO</th>
-                            </tr>
-                          </thead>
-                          <tbody id="tbody" style="color: white; font-family: Helvetica; font-size: 13">
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </center>
-            </div>
-          </div>
-        </div>
-      </div>                                
+    </div>                                
     <!---->
     </div>
     <!--FOOTER-->
@@ -125,23 +143,23 @@
         var value = $(this).find('td:first').html();
         var value2 = $(this).find("td").eq(1).html();
         if (value !== undefined){
-            document.getElementById('nickProm').value = value;
-            document.getElementById('nomProm').value = value2;
-            
+            document.getElementById("nickProm").innerHTML = value;
+            document.getElementById("nomProm").innerHTML = value2;
+            //alert("chau");
             $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value, function(responseText) {
-                document.getElementById('descProm').value = responseText;
+                document.getElementById("descProm").innerHTML = responseText;
             });
-            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').value, function(responseText) {
-                document.getElementById('preProm').value = responseText;
+            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').innerHTML, function(responseText) {
+                document.getElementById('preProm').innerHTML = responseText;
             });
-            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').value +"&preProm=" + document.getElementById('preProm').value, function(responseJson) {
+            $.get("DevolverPromocion", "nomProm="+ value2 +"&nickProm=" + value +"&descProm=" + document.getElementById('descProm').innerHTML +"&preProm=" + document.getElementById('preProm').innerHTML, function(responseJson) {
                 $("#tbody").children().remove();
                 var tblBody  = document.getElementById("tbody");                          // Find all child elements with tag name "option" and remove them (just to prevent duplicate options when button is pressed again).
                 $.each(responseJson, function(index, item) { // Iterate over the JSON array.
                    var row = document.createElement("tr");
 
                     var cell = document.createElement("td");
-                    var cellText = document.createTextNode(document.getElementById('nickProm').value);
+                    var cellText = document.createTextNode(document.getElementById('nickProm').innerHTML);
                     cell.appendChild(cellText);
                     row.appendChild(cell);
 
@@ -149,7 +167,7 @@
                     var cellText = document.createTextNode(item);
                     cell.appendChild(cellText);
                     row.appendChild(cell);
-
+                    
                     tblBody.appendChild(row);      // Create HTML <li> element, set its text content with currently iterated item and append it to the <ul>.
                 });
             });
@@ -157,30 +175,45 @@
         }
          
     });
-
- /*$('.ok').on('click', function(e){
-     alert($("#tabla tr.selected td:first").html());
- });*/
 </script>
 
 <script type="text/javascript">
         function AGREGARALCARRO() {
-           var nick = document.getElementById('nickProm').value;
-           var nom = document.getElementById('nomProm').value;
+           var nick = document.getElementById('nickProm').innerHTML;
+           var nom = document.getElementById('nomProm').innerHTML;
            if (nick != "" && nom != ""){
-                //alert("nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').value +"&cant=" + document.getElementById('cant').value);
-                $.get("AgregarAlCarrito", "nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').value +"&cant=" + document.getElementById('cant').value, function(responseText) {
+                //alert("nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').innerHTML +"&cant=" + document.getElementById('cant').value);
+                $.get("AgregarAlCarrito", "nickProm="+ nick +"&nomProm=" + nom +"&preProm=" + document.getElementById('preProm').innerHTML +"&cant=" + document.getElementById('cant').value, function(responseText) {
                     alert("Promocion agregada correctamente");
-                    document.getElementById('nickProm').value = "";
-                    document.getElementById('nomProm').value = "";
-                    document.getElementById('descProm').value = "";
-                    document.getElementById('preProm').value = "";
+                    document.getElementById('nickProm').innerHTML = "";
+                    document.getElementById('nomProm').innerHTML = "";
+                    document.getElementById('descProm').innerHTML = "";
+                    document.getElementById('preProm').innerHTML = "";
                     document.getElementById('cant').value = "1";
                     $("#tbody").children().remove();
                 });
            }
         }
                 
+</script>
+
+<script type="text/javascript">
+    $("#tablaServ tr").click(function(){
+        $(this).addClass('selected').siblings().removeClass('selected');    
+        var value = $(this).find('td:first').html();
+        var value2 = $(this).find("td").eq(1).html();
+        if (value !== undefined){
+            $.get("DevolverPromocion", "nomServ="+ value2 +"&nickServ=" + value, function(responseJson) {
+                document.getElementById("nickServ").innerHTML = responseJson.nickProveedor;
+                document.getElementById("nomServ").innerHTML = responseJson.nombre;
+                document.getElementById("precioServ").innerHTML = responseJson.precio;
+                document.getElementById("oriServ").innerHTML = responseJson.ciudadOrigen;
+                document.getElementById("destServ").innerHTML = responseJson.ciudadDestino;
+                document.getElementById("descServ").innerHTML = responseJson.descripcion;
+            });
+        }
+         
+    });
 </script>
 
 </body></html>

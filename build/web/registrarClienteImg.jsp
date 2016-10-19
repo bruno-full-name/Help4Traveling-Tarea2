@@ -25,7 +25,7 @@
     <div class="divPrincipal">
 <!---->
 
-    <centrar><h1>El Cliente fue Registrado con Exito</h1>
+    <h1>El Cliente fue Registrado con Exito</h1>
 
         <p>Seleccione una imagen si asi lo desea</p>
 
@@ -36,7 +36,7 @@
         </form>
 
         <a href="index.jsp">Volver al inicio</a>    
-    </centrar>
+    
 <!---->
   </div>
 <!---->

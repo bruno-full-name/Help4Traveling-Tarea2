@@ -30,8 +30,10 @@
             }
         </script>
         <script>
-            function Cancelar(){
-                
+            function BorrarCarrito(){
+            $.get("BorrarCarrito", function(responseText) {
+                location.reload();
+            });
             }
         </script>
         <script>
@@ -113,7 +115,7 @@
             <button class="btn btn-primary" style="width: 100%; height: 45px; font-family: Helvetica; font-size: 22px; margin-top: 100" onclick="refresh()">Actualizar</button>
           </div>
           <div class="col-md-2">
-            <button class="btn btn-danger" style="width: 100%; height: 45px; font-family: Helvetica; font-size: 22px; margin-top: 100" onclick="vuelta()">Cancelar</button>
+            <button class="btn btn-danger" style="width: 100%; height: 45px; font-family: Helvetica; font-size: 22px; margin-top: 100" onclick="BorrarCarrito()">Cancelar</button>
           </div>
           <div class="col-md-8">
             <div class="row" style="height: 60%; min-height: 65%; max-height: 65%">
