@@ -61,6 +61,11 @@ public class ModelArticulo {
         return ICArticulo.datosServicio(nameServ, nameProv);
     }
     
+    public byte[] getImagen(String nickP, String nomA, String num){
+        return ManejadorSQL.GetInstance().selectImgServicio(num, nickP, nomA);
+    }
+    
+    
 }
     
     
