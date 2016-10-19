@@ -185,9 +185,9 @@
                                 </center>
                             </div>
                             <div class="col-md-6" style="height: 85%">
-                                <div class="row" style="height: 25%; max-height: 25%"></div>
+                                <div class="row" style="height: 15%; max-height: 15%"></div>
                                 <div class="row" style="height: 50%; max-height: 50%">
-                                    <img src="" class="img-rounded img-responsive">
+                                    <img src="devolverImagenUsuario?nickU=<%= c.getNick().trim()%>" class="img-rounded img-responsive">
                                 </div>
                                 <div class="row" style="height: 25%; max-height: 25%"></div>
                             </div>
