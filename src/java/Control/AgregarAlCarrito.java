@@ -62,7 +62,7 @@ public class AgregarAlCarrito extends HttpServlet {
             session = request.getSession();
         }
         listInfoRes = (ArrayList<DtInfoReserva>) session.getAttribute("ListaInfoRes");
-        System.out.println(listInfoRes);
+        //System.out.println(listInfoRes);
         if (listInfoRes == null){
             ArrayList<DtInfoReserva> carrito2 = new ArrayList<DtInfoReserva>();
             carrito2.add(carrito);

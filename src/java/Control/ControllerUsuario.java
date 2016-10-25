@@ -62,8 +62,8 @@ public class ControllerUsuario extends HttpServlet {
         }
         
         DtCliente dtcli = new DtCliente(nick, name, lastname, mail, new DtFecha(fnac), null, null, pass);
-        System.out.println(nick +"-"+ name +"-"+ lastname +"-"+ mail +"-"+ pass);
-        System.out.println(fnac);
+        //System.out.println(nick +"-"+ name +"-"+ lastname +"-"+ mail +"-"+ pass);
+        //System.out.println(fnac);
         modUsu.agregarCliente(dtcli);
 
         request.setAttribute("mensaje", "Se agrego el cliente");

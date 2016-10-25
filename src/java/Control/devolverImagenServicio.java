@@ -15,12 +15,12 @@ public class devolverImagenServicio extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             String nickU = request.getParameter("nickP");
-            System.out.println(nickU);
+            //System.out.println(nickU);
             String nomA = request.getParameter("nomA");
-            System.out.println(nomA);
+            //System.out.println(nomA);
             String campo = "imagen";
             campo += request.getParameter("campo");
-            System.out.println(campo);
+            //System.out.println(campo);
             
             response.setContentType("image/jpg");
             byte[] img = ModelArticulo.getInstance().getImagen(nickU, nomA, campo);

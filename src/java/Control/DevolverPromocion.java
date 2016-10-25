@@ -40,7 +40,7 @@ public class DevolverPromocion extends HttpServlet {
                     response.getWriter().write(json);   
                 }
             } else {
-                System.out.println("????????");
+                //System.out.println("????????");
                 // Handle regular (JSP) response.
             }
             

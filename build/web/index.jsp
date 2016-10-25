@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 16/09/2016, 12:45:38 PM
-    Author     : Agustin
---%>
-
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
