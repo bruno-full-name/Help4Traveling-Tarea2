@@ -50,9 +50,7 @@ public class ControllerUserImage extends HttpServlet {
         
         try {
             modUsu.agregarImagenCliente(fileContent, description);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(ControllerUserImage.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(ControllerUserImage.class.getName()).log(Level.SEVERE, null, ex);
         }      
         

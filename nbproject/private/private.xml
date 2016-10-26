@@ -12,7 +12,9 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/index.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Control/ControllerUsuario.java</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/web/registrarClienteImg.jsp</file>
+            <file>file:/C:/GitHub/Help4Traveling-Tarea2/src/java/Modelo/ModelUsuario.java</file>
         </group>
     </open-files>
 </project-private>

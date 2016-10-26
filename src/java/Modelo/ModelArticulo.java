@@ -27,7 +27,7 @@ public class ModelArticulo {
         return ICArticulo.listarPromociones();
     }
     
-     public DtPromocion datosPromocion(String nombreProm, String nameProv){
+    public DtPromocion datosPromocion(String nombreProm, String nameProv){
         return ICArticulo.datosPromociones(nombreProm, nameProv);
     }
     
